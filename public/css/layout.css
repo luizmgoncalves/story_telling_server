@@ -1,0 +1,100 @@
+body{
+    background-color: rgb(112, 112, 112);
+}
+div.ex_title{
+    text-align: center;
+    width: 100%;
+}
+.title{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background-color: rgb(161, 163, 167);
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+h5{
+    text-align: center;
+    color:rgb(110, 2, 2);
+    font-family:'Lucida Handwriting';
+}
+h1#history_title{
+    text-align: center;
+    font-family:'Lucida Handwriting';
+}
+#content{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+p{
+    text-indent: 40px;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+div.option{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    width: max-content;
+}
+p.option{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 2);
+    color: white;
+    font-size: 15px;
+    text-indent: 0px;
+}
+div.input_atom{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgb(48, 48, 48);
+
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+
+    margin: 20px;
+
+    color: white;
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input_text{
+    border-radius: 5px;
+}
+
+.input_number{
+    width: 40px;
+}
+.choice_table{
+    border-collapse:separate; 
+    border-spacing:20px;
+}
+
+#add_choice_div{
+    width: 100%;
+    text-align: center;
+}
+
+#add_choice{
+    width: max-content;
+}
