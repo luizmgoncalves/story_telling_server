@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title"></h1>
+        </div>
+    </div>
+    <%- include('../partials/header'); %>
+
+    <div id="content">
+        <p id="History"></p>
+        <p>O que você escolhe?</p>
+        <div id="options"></div>
+    </div>
+
+    <script src="/js/script.js"></script>
+    <script>
+        var current_choice = 0
+        var options
+        var main_json
+        
+        const fetchPromise = fetch('https://luizmgoncalves.github.io/story_telling_creator/history.json');
+
+        fetchPromise.then( response => {
+            const jsonPromise = response.json();
+                jsonPromise.then( json => {
+            main_json = json
+            history_initialization()
+            load_history()
+            });
+        });
+    </script>
+</body>
+</html>

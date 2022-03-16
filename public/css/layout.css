@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(112, 112, 112);
+    background-color: rgb(221, 221, 221);
 }
 div.ex_title{
     text-align: center;
@@ -34,16 +34,6 @@ p{
     font-size: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-div.option{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 10px;
-
-    cursor: pointer;
-    width: max-content;
-}
 p.option{
     padding-left: 20px;
     padding-right: 20px;
@@ -51,10 +41,25 @@ p.option{
     padding-bottom: 5px;
     border-radius: 10px;
     background-color: rgb(2, 2, 2);
+    cursor: pointer;
+
+    transition: padding 0.25s;
+
+    width: max-content;
     color: white;
     font-size: 15px;
     text-indent: 0px;
 }
+
+p.option:hover{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+
 div.input_atom{
     padding-left: 20px;
     padding-right: 20px;
@@ -97,4 +102,43 @@ div.input_atom{
 
 #add_choice{
     width: max-content;
+}
+
+div.header{
+    height: max-content;
+    text-align: center;
+    padding-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+div.header a{
+    text-decoration: none;
+    color: white;
+}
+
+div.header_item{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 2);
+    cursor: pointer;
+
+    display: inline-block;
+
+    transition: padding 0.25s;
+
+    width: max-content;
+    color: white;
+    font-size: 15px;
+    text-indent: 0px;
+}
+
+div.header_item:hover{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
 }

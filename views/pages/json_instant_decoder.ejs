@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title"></h1>
+        </div>
+        <%- include('../partials/header'); %>
+    </div>
+
+    <div id="content">
+        <p id="History"></p>
+        <p>O que você escolhe?</p>
+        <div id="options"></div>
+    </div>
+
+    <script src="/js/script.js"></script>
+    <script>
+        var current_choice = 0
+        var options
+        var main_json
+        
+
+        var text = window.prompt("digite aqui o json gerado pela página \"Criador de histórias\": ")
+        main_json = JSON.parse(text)
+        history_initialization()
+        load_history()
+    
+    </script>
+</body>
+</html>

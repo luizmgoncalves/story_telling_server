@@ -2,20 +2,30 @@ const express = require("express")
 
 const app = express()
 
+const db = require("./db");
+
 app.use(express.static(__dirname + '/public'))
+
+app.use(express.json())
 
 app.set("view engine", "ejs")
 
 app.get("/", (req, res)=>{
-    res.render("../views/index")
+    console.log(req.params)
+    res.render("../views/pages/index")
+})
+
+app.get("/historia/:index/", (req, res)=>{
+    console.log(req.params)
+    res.json({"Titulo":"hello","Escolhas":[{"id":0,"História":"123","Opções":[{"Id":0,"Texto":"goog","link":null}]}]})
 })
 
 app.get("/criar_historia", (req, res)=>{
-    res.render("../views/json_creator")
+    res.render("../views/pages/json_creator")
 })
 
 app.get("/jogar_historia", (req, res)=>{
-    res.render("../views/json_instant_decoder")
+    res.render("../views/pages/json_instant_decoder")
 })
 
 
