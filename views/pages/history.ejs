@@ -22,13 +22,19 @@
         var current_choice = 0
         var options
         var main_json
-        
 
-        var text = window.prompt("digite aqui o json gerado pela página \"Criador de histórias\": ")
-        main_json = JSON.parse(text)
-        history_initialization()
-        load_history()
-    
+        let history_id = <%- history_id %>
+        
+        const fetchPromise = fetch(`/carregar_historia/${history_id}/`);
+
+        fetchPromise.then( response => {
+            const jsonPromise = response.json();
+                jsonPromise.then( json => {
+            main_json = json
+            history_initialization()
+            load_history()
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(221, 221, 221);
+    background-color: rgb(245, 245, 245);
 }
 div.ex_title{
     text-align: center;
@@ -11,7 +11,11 @@ div.ex_title{
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 10px;
-    background-color: rgb(161, 163, 167);
+    background-color: rgb(209, 209, 209);
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+
     width: max-content;
     margin-left: auto;
     margin-right: auto;
@@ -35,12 +39,9 @@ p{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 p.option{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 20px 5px 20px;
     border-radius: 10px;
-    background-color: rgb(2, 2, 2);
+    background-color: black;
     cursor: pointer;
 
     transition: padding 0.25s;
@@ -52,21 +53,14 @@ p.option{
 }
 
 p.option:hover{
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 10px;
+    padding: 10px 40px 10px 40px;
 }
 
 
 div.input_atom{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 10px;
+    padding: 5px 20px 10px 20px;
     border-radius: 10px;
-    background-color: rgb(48, 48, 48);
+    background-color: rgb(190, 190, 190);
 
     border-color: black;
     border-style: solid;
@@ -74,7 +68,7 @@ div.input_atom{
 
     margin: 20px;
 
-    color: white;
+    color: rgb(0, 0, 0);
     
     margin-left: auto;
     margin-right: auto;
@@ -85,6 +79,7 @@ div.input_atom{
 
 .input_text{
     border-radius: 5px;
+    border-style: none;
 }
 
 .input_number{
@@ -104,9 +99,10 @@ div.input_atom{
     width: max-content;
 }
 
+
 div.header{
     height: max-content;
-    text-align: center;
+    text-align: right;
     padding-bottom: 10px;
     padding: 10px 10px 10px 10px;
 }
@@ -116,11 +112,9 @@ div.header a{
     color: white;
 }
 
+
 div.header_item{
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 20px 5px 20px;
     border-radius: 10px;
     background-color: rgb(2, 2, 2);
     cursor: pointer;
@@ -133,12 +127,9 @@ div.header_item{
     color: white;
     font-size: 15px;
     text-indent: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 div.header_item:hover{
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 10px;
+    padding: 10px 40px 10px 40px;
 }

@@ -11,9 +11,6 @@ async function connect() {
     //apenas testando a conexão
     const client = await pool.connect();
     console.log("Criou pool de conexões no PostgreSQL!");
-
-    const res = await client.query('SELECT titulo FROM histories.histories');
-    console.log(res.rows[0]);
     client.release();
 
     //guardando para usar sempre o mesmo
@@ -21,4 +18,16 @@ async function connect() {
     return pool.connect();
 }
 
-connect();
+async function selectTitles() {
+    const client = await connect();
+    const res = await client.query('SELECT (id, titulo) FROM histories.histories');
+    return res.rows;
+}
+
+async function loadHistory(id) {
+    const client = await connect();
+    const res = await client.query('SELECT historia FROM histories.histories WHERE id = $1', [id]);
+    return res.rows;
+}
+ 
+module.exports = { selectTitles, loadHistory }

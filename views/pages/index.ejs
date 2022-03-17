@@ -4,35 +4,24 @@
     <%- include('../partials/head'); %>
 </head>
 <body>
+    <%- include('../partials/header'); %>
     <div class="ex_title">
         <div class="title">
-            <h1 id="history_title"></h1>
+            <h1 id="history_title">De uma olhada nas nossas histórias</h1>
         </div>
     </div>
-    <%- include('../partials/header'); %>
 
     <div id="content">
-        <p id="History"></p>
-        <p>O que você escolhe?</p>
-        <div id="options"></div>
+        <p>As histórias que temos disponíveis no momento são: </p>
+        <div id="options">
+            <% histories.forEach(function(history){ %>
+                <p class="option">
+                    <a href="/jogar_historia/<%- history.id %>/" style="text-decoration: none; color: white;">
+                        <%- history.title %>
+                    </a>
+                </p>
+            <% }); %>
+        </div>
     </div>
-
-    <script src="/js/script.js"></script>
-    <script>
-        var current_choice = 0
-        var options
-        var main_json
-        
-        const fetchPromise = fetch('https://luizmgoncalves.github.io/story_telling_creator/history.json');
-
-        fetchPromise.then( response => {
-            const jsonPromise = response.json();
-                jsonPromise.then( json => {
-            main_json = json
-            history_initialization()
-            load_history()
-            });
-        });
-    </script>
 </body>
 </html>
