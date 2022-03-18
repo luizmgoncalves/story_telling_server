@@ -1,33 +1,24 @@
-async function connect() {
-    if (global.connection)
-        return global.connection.connect();
+const mongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectId;
 
-    const { Pool } = require('pg');
-    const pool = new Pool({
-        connectionString: 'postgres://json_creator:1234@localhost:5432/histories'
-
-    });
-
-    //apenas testando a conexão
-    const client = await pool.connect();
-    console.log("Criou pool de conexões no PostgreSQL!");
-    client.release();
-
-    //guardando para usar sempre o mesmo
-    global.connection = pool;
-    return pool.connect();
-}
+console.log("Ola")
+mongoClient.connect("mongodb://localhost")
+            .then(conn => {
+                global.conn = conn.db("json_creator")
+                console.log("Conectado hehehe")
+            })
+            .catch(err => console.log(err))
 
 async function selectTitles() {
-    const client = await connect();
-    const res = await client.query('SELECT (id, titulo) FROM histories.histories');
-    return res.rows;
+    let values = await global.conn.collection("stories").find({}, {projection: {Titulo: true}}).toArray()
+    
+    return values
 }
 
 async function loadHistory(id) {
-    const client = await connect();
-    const res = await client.query('SELECT historia FROM histories.histories WHERE id = $1', [id]);
-    return res.rows;
+    let value = await global.conn.collection("stories").findOne({_id: ObjectId(id)}, {projection: {_id: false}})
+    
+    return value
 }
- 
+
 module.exports = { selectTitles, loadHistory }

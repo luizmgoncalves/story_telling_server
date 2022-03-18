@@ -10,34 +10,16 @@ app.use(express.json())
 
 app.set("view engine", "ejs")
 
-app.get("/", (req, res)=>{
-    let historias = {
-        histories: [
-            //{id: 0, title: "oi leticio"},
-            //{id: 1, title: "hey leticio"}
-        ]
+app.get("/", async (req, res)=>{
+    let vars = {
+        stories: await db.selectTitles()
     }
-    db.selectTitles().then((row_list)=>{
-        console.log(row_list)
-        row_list.forEach(row => {
-            let list = JSON.parse(row.row.replace('(', "[").replace(")", "]"))
-            let res = {id: list[0], title: list[1]}
-            console.log(res)
-            historias["histories"].push(res)
-        });
-        console.log(historias)
-    
-        res.render("../views/pages/index", historias)
-    })
+    res.render("../views/pages/index", vars)
 })
 
-app.get("/carregar_historia/:index/", (req, res)=>{
-    db.loadHistory(req.params['index']).then((row_list)=>{
-        console.log(row_list)
-        let history = JSON.parse(row_list[0]['historia'])
-        
-        res.json(history)
-    })
+app.get("/carregar_historia/:index/", async (req, res)=>{
+    let value = await db.loadHistory(req.params['index'])
+    res.json(value)
 })
 
 app.get("/jogar_historia/:index/", (req, res)=>{

@@ -18,12 +18,13 @@
     </div>
 
     <script src="/js/script.js"></script>
+    <p id="history_id" hidden="true"><%- history_id %></p>
     <script>
         var current_choice = 0
         var options
         var main_json
 
-        let history_id = <%- history_id %>
+        let history_id = document.getElementById("history_id").innerText
         
         const fetchPromise = fetch(`/carregar_historia/${history_id}/`);
 

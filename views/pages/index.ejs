@@ -14,10 +14,10 @@
     <div id="content">
         <p>As histórias que temos disponíveis no momento são: </p>
         <div id="options">
-            <% histories.forEach(function(history){ %>
+            <% stories.forEach(function(history){ %>
                 <p class="option">
-                    <a href="/jogar_historia/<%- history.id %>/" style="text-decoration: none; color: white;">
-                        <%- history.title %>
+                    <a href="/jogar_historia/<%- history._id %>/" style="text-decoration: none; color: white;">
+                        <%- history.Titulo %>
                     </a>
                 </p>
             <% }); %>
