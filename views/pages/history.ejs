@@ -18,24 +18,13 @@
     </div>
 
     <script src="/js/script.js"></script>
-    <p id="history_id" hidden="true"><%- history_id %></p>
     <script>
         var current_choice = 0
         var options
         var main_json
-
-        let history_id = document.getElementById("history_id").innerText
-        
-        const fetchPromise = fetch(`/carregar_historia/${history_id}/`);
-
-        fetchPromise.then( response => {
-            const jsonPromise = response.json();
-                jsonPromise.then( json => {
-            main_json = json
-            history_initialization()
-            load_history()
-            });
-        });
+        main_json = <%- JSON.stringify(history_json) %> 
+        history_initialization()
+        load_history()
     </script>
 </body>
 </html>

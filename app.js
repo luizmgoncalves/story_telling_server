@@ -17,13 +17,9 @@ app.get("/", async (req, res)=>{
     res.render("../views/pages/index", vars)
 })
 
-app.get("/carregar_historia/:index/", async (req, res)=>{
-    let value = await db.loadHistory(req.params['index'])
-    res.json(value)
-})
-
-app.get("/jogar_historia/:index/", (req, res)=>{
-    res.render('../views/pages/history', {"history_id": req.params.index})
+app.get("/jogar_historia/:index/", async (req, res)=>{
+    let history_json = await db.loadHistory(req.params['index'])
+    res.render('../views/pages/history', {"history_json": history_json})
 })
 
 
