@@ -1,22 +1,27 @@
-const mongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectId;
+const { MongoClient, ServerApiVersion } = require('mongodb')
+const ObjectId = require("mongodb").ObjectId
+const login = require("./login_data")
+const BSONTypeError = require("mongodb").BSONTypeError
 
-console.log("Ola")
-mongoClient.connect("mongodb://localhost")
-            .then(conn => {
-                global.conn = conn.db("json_creator")
-                console.log("Conectado hehehe")
-            })
-            .catch(err => console.log(err))
+const uri = login.uri
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
+client.connect(err => {
+    global.conn = client.db(login.db_name)
+});
 
 async function selectTitles() {
-    let values = await global.conn.collection("stories").find({}, {projection: {Titulo: true}}).toArray()
+    let values = await global.conn.collection(login.collection_name).find({}, {projection: {Titulo: true}}).toArray()
     
     return values
 }
 
 async function loadHistory(id) {
-    let value = await global.conn.collection("stories").findOne({_id: ObjectId(id)}, {projection: {_id: false}})
+    try{
+        id = ObjectId(id)
+    }catch(BSONTypeError){
+        id = ""
+    }
+    let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
     
     return value
 }
