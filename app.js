@@ -37,10 +37,4 @@ app.get("/jogar_historia", (req, res)=>{
 
 
 
-let port = process.env.PORT
-
-if (port == null || port == "") {
-  port = 8000
-}
-
-app.listen(port, () => console.log("Server is running..."))
+app.listen(process.env.PORT || 3000, () => console.log("Server is running..."))
