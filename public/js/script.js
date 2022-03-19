@@ -20,6 +20,14 @@ function load_history(){
 
     var options_div = document.getElementById("options")
 
+    if(options.length <= 1){
+        choice_p = document.getElementById("choice")
+        choice_p.innerText = ""
+    }else{
+        choice_p = document.getElementById("choice")
+        choice_p.innerText = "O que você escolhe?"
+    }
+
     options_div.innerHTML = ""
 
     options.forEach(option => {
