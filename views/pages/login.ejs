@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+  <body>
+    <%- include('../partials/header'); %>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title">Login</h1>
+        </div>
+        <style>
+            p.description{
+                font-size: 16px;
+                text-indent: 0px;
+            }
+        </style>
+    </div>
+    <div id="content">
+        <div class="input_atom">
+            <form action="/login" method="POST">
+                <table>
+                    <tr>
+                    <td>
+                        <label for="username">Nome de usuário: </label>
+                    </td>
+                    <td>
+                        <input name="username" type="text" /><br />
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">Senha: </label>
+                        </td>
+                        <td>
+                            <input name="password" type="password" /><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Login" />
+                        </td>
+                    </tr>
+                    <% if(message) { %>
+                    <tr>
+                        <td colspan="2">
+                            <p class="description">
+                                <label style="color:Red"><%= message %></label>
+                            </p>
+                        </td>
+                    </tr>
+                    <%}%>
+                    <tr>
+                        <td colspan="2">
+                            <p class="description">
+                                <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/signup">Não possui cadastro?</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+  </body>
+</html>

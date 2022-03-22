@@ -1,14 +1,29 @@
 const express = require("express")
-
 const app = express()
-
 const db = require("./db");
+const loginRouter = require('./routes/login');
+
+const passport = require('passport');
+const session = require('express-session');
 
 app.use(express.static(__dirname + '/public'))
 
 app.use(express.json())
 
+require('./auth')(passport);
+app.use(session({  
+    secret: '01234567890123456789',//configure um segredo seu aqui,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 30 * 60 * 1000 }//30min
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.set("view engine", "ejs")
+
+app.use('/login', loginRouter);
 
 app.get("/", async (req, res)=>{
     let vars = {

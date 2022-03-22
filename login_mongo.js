@@ -2,7 +2,7 @@
 let uri_s
 
 try{
-    const login = require("./login")
+    const login = require("./login_mongo_data")
     uri_s = `mongodb+srv://${login.user_name}:${login.password}@${login.cluster_name}.mongodb.net/${login.db_name}?retryWrites=true&w=majority`
 }catch{
     uri_s = process.env.MONGODB_URI
