@@ -1,11 +1,10 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt-nodejs');
 const LocalStrategy = require('passport-local').Strategy;
 
 const users = [{ 
     _id: 1, 
     username: "adm", 
-    password: "$2a$06$HT.EmXYUUhNo3UQMl9APmeC0SwoGsx7FtMoAWdzGicZJ4wR1J8alW",
-    email: "contato@luiztools.com.br"
+    password: "$2a$10$MMUDAAWu2q4dRFdg7quDOeFD8/9kx6IXKfcfs27HzsQiz8LxlJbSC"
 }];
 
 module.exports = function(passport){
@@ -30,20 +29,21 @@ module.exports = function(passport){
         }
     });
 
-    passport.use(new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password'
-    },
+    passport.use(new LocalStrategy(
         (username, password, done) => {
             try {
                 const user = findUser(username);
     
                 // usuário inexistente
-                if (!user) { return done(null, false) }
+                if (!user) { 
+                    return done(null, false) 
+                }
     
                 // comparando as senhas
                 const isValid = bcrypt.compareSync(password, user.password);
-                if (!isValid) return done(null, false)
+                if (!isValid){ 
+                    return done(null, false)
+                }
                 
                 return done(null, user)
             } catch (err) {
@@ -51,4 +51,5 @@ module.exports = function(passport){
             }
         }
     ));
+
 }
