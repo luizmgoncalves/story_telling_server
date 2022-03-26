@@ -2,6 +2,7 @@ const express = require("express")
 
 const loginRouter = require('./routes/login')
 const indexRouter = require('./routes/index')
+const cadastroRouter = require('./routes/cadastro')
 
 const app = express()
 
@@ -34,6 +35,8 @@ function authenticationMiddleware(req, res, next) {
   }
 
 app.use('/login', loginRouter);
+
+app.use('/cadastro', cadastroRouter);
 
 app.use('/', authenticationMiddleware, indexRouter);
 

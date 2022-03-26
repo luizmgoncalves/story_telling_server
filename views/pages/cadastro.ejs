@@ -7,7 +7,7 @@
     <%- include('../partials/header'); %>
     <div class="ex_title">
         <div class="title">
-            <h1 id="history_title">Login</h1>
+            <h1 id="history_title">Cadastro</h1>
         </div>
         <style>
             p.description{
@@ -18,22 +18,31 @@
     </div>
     <div id="content">
         <div class="input_atom">
-            <form action="/login" method="POST">
+            <form action="/cadastro" method="POST">
                 <table>
+                    <% if(!sucess) { %>
                     <tr>
-                    <td>
-                        <label for="username">Email: </label>
-                    </td>
-                    <td>
-                        <input id="username" name="username" type="text" />
-                    </td>
+                        <td>
+                            <label for="username">Nome de usuário: </label>
+                        </td>
+                        <td>
+                            <input name="username" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="email">Email: </label>
+                        </td>
+                        <td>
+                            <input name="email" type="text" />
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <label for="password">Senha: </label>
                         </td>
                         <td>
-                            <input id="password" name="password" type="password" />
+                            <input name="password" type="password" />
                         </td>
                     </tr>
                     <tr>
@@ -41,22 +50,25 @@
                             <input type="submit" value="Login" />
                         </td>
                     </tr>
-                    <% if(message) { %>
+                    <%}%>
+                    <% if(message_err.length > 0) { %>
                     <tr>
                         <td colspan="2">
                             <p class="description">
-                                <label style="color:Red"><%= message %></label>
+                                <label style="color:Red"><%- message_err %></label>
                             </p>
                         </td>
                     </tr>
                     <%}%>
+                    <% if(message) { %>
                     <tr>
                         <td colspan="2">
                             <p class="description">
-                                <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/users/signup">Não possui cadastro?</a>
+                                <label style="color:Green"><%= message %></label>
                             </p>
                         </td>
                     </tr>
+                    <%}%>
                 </table>
             </form>
         </div>
