@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (sucess){ %> 
+        <title>Sucesso</title>
+    <% } else {%> 
+        <title>Falha</title>
+    <% } %> 
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+</head>
+<body>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title">
+                <% if (sucess){ %> 
+                    Sucesso
+                <% } else {%> 
+                    Falha
+                <% } %> 
+            </h1>
+        </div>
+        <p id="time_for_redirect">Redirecionando para login em 5 segundos.</p>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "/login";
+        }, 5000);
+
+        timer = document.getElementById("time_for_redirect")
+        var i = 4
+        setInterval(function() {
+            timer.innerText = `Redirecionando para login em ${i} segundos.`
+            i--
+        }, 1000);
+        
+    </script>
+</body>
+</html>

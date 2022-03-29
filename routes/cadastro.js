@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const postgre = require('../db/postgre')
 const email_login = require('./login_email')
 
+
 var emailRegex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
 function isEmailValid(email) {
@@ -64,8 +65,8 @@ router.post('/', async (req, res) => {
             let transporter = nodemailer.createTransport({
                 service: email_login.service,
                 auth: {
-                user: email_login.user,
-                pass: email_login.pass
+                    user: email_login.user,
+                    pass: email_login.pass
                 }
             });
             
@@ -79,13 +80,18 @@ router.post('/', async (req, res) => {
             };
             
             transporter.sendMail(mailOptions, function(error, info){
-                console.log('Email sent: ' + info.response);
+                if(error){
+                    console.log(error)
+                }
+                else{
+                    console.log('Email sent: ' + info.response);
+                }
             });
             
             data['message'] = `Um e-mail foi enviado para ${req.body["email"]} confirmação`
         }else{
             valid = false
-            data['message_err'] += "E-mail já cadastrado"
+            data['message_err'] += "Erro ao realizar o cadastro"
             data['sucess'] = false
         }
 
@@ -94,10 +100,11 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/confirmar', async (req, res) => {
+    let sucess = false
     if (req.query.conid){
-        await postgre.cadastrar_efetivo(req.query.conid)
+        sucess = await postgre.cadastrar_efetivo(req.query.conid)
     }
-    res.redirect("/login")
+    res.render("../views/pages/register_sucess", {sucess: sucess})
 });
 
 module.exports = router;

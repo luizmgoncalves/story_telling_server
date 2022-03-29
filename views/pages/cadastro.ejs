@@ -4,7 +4,7 @@
         <%- include('../partials/head'); %>
     </head>
   <body>
-    <%- include('../partials/header'); %>
+    <%- include('../partials/header', {user: null}); %>
     <div class="ex_title">
         <div class="title">
             <h1 id="history_title">Cadastro</h1>
@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="Login" />
+                            <input type="submit" value="Cadastrar" />
                         </td>
                     </tr>
                     <%}%>

@@ -4,10 +4,12 @@ const moment = require("moment");
 const login_data = require('./login_postgre')
 
 async function connect() {
-    if (global.connection)
+    if (global.connection){
         return global.connection.connect();
+    }
 
     const { Pool } = require('pg');
+    
     const pool = new Pool(login_data.login_data);
 
     //apenas testando a conexão
@@ -19,69 +21,115 @@ async function connect() {
 }
 
 async function criar_novo_cadastro(username, email, senha){
-    let client = await connect()
-    let validade = moment().add(1, 'h').format()
+    try{
+        let client = await connect()
+        let validade = moment().add(1, 'h').format()
 
-    let sql = `select * from users_sch.users_tb where email = $1`
-    let values = [email];
-    let result = await client.query(sql, values)
-    if(result.rows[0]){
-        console.log("já tem")
+        let sql = `select * from users_sch.users_tb where email = $1`
+        let values = [email];
+        let result = await client.query(sql, values)
+        if(result.rows[0]){
+            return {id: null, email: null}
+        }
+        sql = "INSERT INTO cadastro.cadastros(username, email, senha, validade) VALUES ($1,$2,$3, $4) returning id, email;"
+
+        values = [username, email, bcrypt.hashSync(senha), validade];
+        result = await client.query(sql, values)
+
+        await client.release()
+
+        return result.rows[0]
+
+    } catch(err){
+        console.log("Houve o seguinte erro durante a função \"criar_novo_cadastro\":\n" + err)
         return {id: null, email: null}
     }
-    sql = "INSERT INTO cadastro.cadastros(username, email, senha, validade) VALUES ($1,$2,$3, $4) returning id, email;"
-
-    values = [username, email, bcrypt.hashSync(senha), validade];
-    result = await client.query(sql, values)
-    console.log(result.rows[0])
-    return result.rows[0]
+    
+    
 }
 
 async function cadastrar_efetivo(id){
-    let client = await connect()
-    let sql = 'SELECT * FROM cadastro.cadastros WHERE id=$1'
-    let values = [id]
-    let result = await client.query(sql, values)
-    result = result.rows[0]
-    result.validade = moment(result.validade)
+    try{
+        let client = await connect()
+        let sql = 'SELECT * FROM cadastro.cadastros WHERE id=$1'
+        let values = [id]
+        let result = await client.query(sql, values)
+        result = result.rows[0]
+        if(!result){
+            return false
+        }
+        result.validade = moment(result.validade)
 
-    if(moment().isAfter(result.validade) || result.feito == true){
-        return 
+        if(moment().isAfter(result.validade) || result.feito == true){
+            return false
+        }
+
+        await client.query('UPDATE cadastro.cadastros SET feito = true WHERE email = $1;', [result.email])
+
+        sql = "INSERT INTO users_sch.users_tb(username, email, password) VALUES ($1,$2,$3)"
+
+        values = [result.username, result.email, result.senha]
+
+        await client.query(sql, values)
+        await client.release()
+
+        return true
+
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"cadastrar_efetivo\":\n" + err)
+        return false
     }
-
-    await client.query('UPDATE cadastro.cadastros SET feito = true WHERE id = $1;', [id])
-
-    sql = "INSERT INTO users_sch.users_tb(username, email, password) VALUES ($1,$2,$3)"
-
-    values = [result.username, result.email, result.senha]
-
-    await client.query(sql, values)
-
-    return 
 }
 
 async function find_user_by_id(id){
-    let client = await connect()
-    let res =  await client.query("SELECT * FROM users_sch.users_tb WHERE id = $1",[id])
-    if (res.rows.length==0){
+    let client
+    try{
+        client = await connect()
+
+        let res =  await client.query("SELECT * FROM users_sch.users_tb WHERE id = $1",[id])
+
+        await client.release()
+
+        if (res.rows.length==0){
+            return null
+        }
+        return res.rows[0]
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"find_user_by_id\":\n" + err)
         return null
     }
-    return res.rows[0]
+        
+    
 }
 
 async function find_user_by_email(email){
-    let client = await connect()
-    let res =  await client.query("SELECT * FROM users_sch.users_tb WHERE email = $1",[email])
-    if (res.rows.length==0){
+    try{
+        let client = await connect()
+        let res =  await client.query("SELECT * FROM users_sch.users_tb WHERE email = $1",[email])
+        if (res.rows.length==0){
+            return null
+        }
+        await client.release()
+
+        return res.rows[0]
+    } catch(err){
+        console.log("Houve o seguinte erro durante a função \"find_user_by_email\":\n" + err)
         return null
     }
-    return res.rows[0]
 }
 
 async function clean_database(){
-    let client = await connect()
-    let sql = 'DELETE FROM cadastro.cadastros WHERE id > 0'
-    await client.query(sql)
+    try{
+        let client = await connect()
+        let sql = 'DELETE FROM cadastro.cadastros WHERE id > 0'
+        await client.query(sql)
+        sql = 'DELETE FROM users_sch.users_tb WHERE id > 0'
+        await client.query(sql)
+        await client.release()
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"clean_database\":\n" + err)
+    }
 }
 
 module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email}
