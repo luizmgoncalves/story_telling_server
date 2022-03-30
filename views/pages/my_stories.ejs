@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <%- include('../partials/header', {user: user}); %>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title">Suas Histórias</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <p>As histórias que você escreveu até agora são: </p>
+        <div id="options">
+            <% if (stories.length == 0){ %>
+                <p>Nenhuma história até agora</p>
+            <% } %>
+            <% stories.forEach(function(history){ %>
+                <p class="option">
+                    <a href="/jogar_historia/<%- history._id %>/" style="text-decoration: none; color: white;">
+                        <%- history.Titulo %>
+                    </a>
+                </p>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>

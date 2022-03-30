@@ -15,6 +15,12 @@ async function selectTitles() {
     return values
 }
 
+async function getMyTitles(user_id){
+    let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true}}).toArray()
+
+    return values
+}
+
 async function loadHistory(id) {
     try{
         id = ObjectId(id)
@@ -26,4 +32,4 @@ async function loadHistory(id) {
     return value
 }
 
-module.exports = { selectTitles, loadHistory }
+module.exports = { selectTitles, loadHistory, getMyTitles }

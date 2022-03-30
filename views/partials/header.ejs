@@ -1,6 +1,12 @@
 <div class="header">
     <% if (user){ %>
         <span>Olá <%- user %>, tenha um bom dia!</span>
+        <br>
+        <a href="/minhas_historias">
+            <div class="header_item">
+                Minhas Histórias
+            </div>
+        </a>
         <a href="/login/logout">
             <div class="header_item">
                 Logout

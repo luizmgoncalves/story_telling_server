@@ -29,6 +29,7 @@ async function criar_novo_cadastro(username, email, senha){
         let values = [email];
         let result = await client.query(sql, values)
         if(result.rows[0]){
+            await client.release()
             return {id: null, email: null}
         }
         sql = "INSERT INTO cadastro.cadastros(username, email, senha, validade) VALUES ($1,$2,$3, $4) returning id, email;"
@@ -56,11 +57,13 @@ async function cadastrar_efetivo(id){
         let result = await client.query(sql, values)
         result = result.rows[0]
         if(!result){
+            await client.release()
             return false
         }
         result.validade = moment(result.validade)
 
         if(moment().isAfter(result.validade) || result.feito == true){
+            await client.release()
             return false
         }
 
@@ -107,10 +110,10 @@ async function find_user_by_email(email){
     try{
         let client = await connect()
         let res =  await client.query("SELECT * FROM users_sch.users_tb WHERE email = $1",[email])
+        await client.release()
         if (res.rows.length==0){
             return null
         }
-        await client.release()
 
         return res.rows[0]
     } catch(err){

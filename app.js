@@ -27,17 +27,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-function authenticationMiddleware(req, res, next) {
-    if (req.isAuthenticated()){
-        return next()
-    }
-    res.redirect('/login?fail=true');
-  }
-
 app.use('/login', loginRouter);
 
 app.use('/cadastro', cadastroRouter);
 
-app.use('/', authenticationMiddleware, indexRouter);
+app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3000, () => console.log("Server is running..."))

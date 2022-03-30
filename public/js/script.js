@@ -14,9 +14,9 @@ function history_initialization(){
 function load_history(){
     var content = document.getElementById("History")
     
-    content.innerText = main_json.Escolhas[current_choice].História
+    content.innerText = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História
 
-    options = main_json.Escolhas[current_choice].Opções
+    options = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).Opções
 
     var options_div = document.getElementById("options")
 
