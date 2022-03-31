@@ -145,15 +145,14 @@
                         <td>Quantidade de opções: </td>
                         <td><input type="number" class="input_number" id="input_number_${actual_id}" value="2" min="0" max="5"></td>
                     </tr>
-                    <tr><td colspan="2"><button id="button_${actual_id}">Preencher opções</button></td></tr>
                 </table>
             `
 
             parent = document.getElementById('choices')
             parent.appendChild(new_choice)
-            
-            let button = document.getElementById(`button_${actual_id}`)
-            button.addEventListener('click', show_options, false)
+
+            let input_number = document.getElementById(`input_number_${actual_id}`)
+            input_number.addEventListener('change', show_options)
 
             actual_id++
 
