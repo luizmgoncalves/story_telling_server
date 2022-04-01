@@ -32,6 +32,20 @@ async function getMyTitles(user_id){
     return values
 }
 
+async function insertStory(story){
+    if (!done){
+        return false
+    }
+
+    try{
+        await global.conn.collection(login.collection_name).insertOne(story)
+    }catch(err){
+        return false
+    }
+
+    return true
+}
+
 async function loadHistory(id) {
     if (!done){
         return {}
@@ -39,11 +53,11 @@ async function loadHistory(id) {
     try{
         id = ObjectId(id)
     }catch(err){
-        id = ""
+        return {}
     }
     let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
     
     return value
 }
 
-module.exports = { selectTitles, loadHistory, getMyTitles }
+module.exports = { selectTitles, loadHistory, getMyTitles, insertStory }

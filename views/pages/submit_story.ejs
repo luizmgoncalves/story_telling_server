@@ -59,8 +59,12 @@
                 while (option !== null){
                     let option_json = {"Id": j, "Texto": option.value, "link": null}
 
+                    if(link.value ==  ''){
+                        option_json.link  = null
+                    }
+                    
                     if (link.value >= 0 && link.value < actual_id){
-                        option_json.link = link.value
+                        option_json.link = Number.parseInt(link.value)
                     }
 
                     choice_json["Opções"].push(option_json)
@@ -79,7 +83,23 @@
 
             console.log(json_result)
             navigator.clipboard.writeText(JSON.stringify(json_result))
-            window.alert("A história foi carregada na sua área de transferência, agora você pode ir na página \"Jogar história\" e colar lá para jogar a história que você acabou de fazer.")
+
+            fetch("/submit_story", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(json_result),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.sucess){
+                        window.alert("A história foi submetida com sucesso!");
+                    }
+                })
+                .catch((error) => {
+                    window.alert("Houve algum erro durante o carregamento da história");
+                });
 
         }
 
