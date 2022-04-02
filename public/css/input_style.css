@@ -1,0 +1,43 @@
+
+div.input_atom{
+    padding: 5px 20px 10px 20px;
+    border-radius: 10px;
+    background-color: rgb(190, 190, 190);
+
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    color: rgb(0, 0, 0);
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input_text{
+    border-radius: 5px;
+    border-style: none;
+}
+
+.input_number{
+    width: 40px;
+}
+.choice_table{
+    border-collapse: separate; 
+    border-spacing: 10px;
+}
+
+#add_choice_div{
+    width: 100%;
+    text-align: center;
+}
+
+#add_choice{
+    width: max-content;
+}

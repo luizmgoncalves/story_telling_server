@@ -31,7 +31,7 @@ function load_history(){
     options_div.innerHTML = ""
 
     options.forEach(option => {
-        let el = document.createElement('p')
+        let el = document.createElement('div')
         el.className = "option"
         el.id = option.Id
         el.innerText = `${option.Texto}`

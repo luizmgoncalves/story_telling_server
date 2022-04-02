@@ -1,0 +1,27 @@
+p{
+    text-indent: 40px;
+    font-size: 20px;
+}
+
+div.encapsulator{
+    width: max-content;
+}
+
+div.option{
+    padding: 5px 20px 5px 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: black;
+    cursor: pointer;
+
+    transition: padding 0.25s;
+
+    width: max-content;
+    color: white;
+    font-size: 15px;
+    text-indent: 0px;
+}
+
+div.option:hover{
+    padding: 10px 40px 10px 40px;
+}

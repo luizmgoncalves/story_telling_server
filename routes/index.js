@@ -21,7 +21,6 @@ router.get("/", async (req, res)=>{
 
 router.get("/jogar_historia/:index/", async (req, res)=>{
     let history_json = await mongo.loadHistory(req.params['index'])
-    console.log(history_json)
     res.render('../views/pages/history', {"history_json": history_json, 'user': req.user ? req.user.username: null})
 })
 

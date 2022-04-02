@@ -1,0 +1,37 @@
+
+div.header{
+    height: max-content;
+    text-align: right;
+    padding-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+div.header a{
+    text-decoration: none;
+    color: white;
+}
+
+
+div.header_item{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 2);
+    cursor: pointer;
+
+    display: inline-block;
+
+    transition: padding 0.25s;
+
+    width: max-content;
+    color: white;
+    font-size: 15px;
+    text-indent: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+div.header_item:hover{
+    padding: 10px 40px 10px 40px;
+}
+

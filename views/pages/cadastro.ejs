@@ -1,7 +1,12 @@
 <!doctype html>
 <html>
     <head>
-        <%- include('../partials/head'); %>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/css/input_style.css">
     </head>
   <body>
     <%- include('../partials/header', {user: null}); %>
@@ -19,7 +24,7 @@
     <div id="content">
         <div class="input_atom">
             <form action="/cadastro" method="POST">
-                <table>
+                <table class="choice_table">
                     <% if(!sucess) { %>
                     <tr>
                         <td>

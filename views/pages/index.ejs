@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <%- include('../partials/head'); %>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principais Histórias</title>
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/css/story.css">
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
@@ -15,11 +20,13 @@
         <p>As histórias que temos disponíveis no momento são: </p>
         <div id="options">
             <% stories.forEach(function(history){ %>
-                <p class="option">
-                    <a href="/jogar_historia/<%- history._id %>/" style="text-decoration: none; color: white;">
+                <div class="encapsulator">
+                <a href="/jogar_historia/<%- history._id %>/" style="text-decoration: none; color: white;">
+                    <div class="option">
                         <%- history.Titulo %>
-                    </a>
-                </p>
+                    </div>
+                </a>
+            </div>
             <% }); %>
         </div>
     </div>

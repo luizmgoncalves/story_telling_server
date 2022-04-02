@@ -1,7 +1,12 @@
 <!doctype html>
 <html>
     <head>
-        <%- include('../partials/head'); %>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/css/input_style.css">
     </head>
   <body>
     <%- include('../partials/header', {user: null}); %>
@@ -10,16 +15,23 @@
             <h1 id="history_title">Login</h1>
         </div>
         <style>
-            p.description{
-                font-size: 16px;
+            span.description{
+                font-size: 14px;
                 text-indent: 0px;
+            }
+            a{
+                color: blue;
+                text-decoration: none;
+            }
+            a:hover{
+                text-decoration:underline;
             }
         </style>
     </div>
     <div id="content">
         <div class="input_atom">
             <form action="/login" method="POST">
-                <table>
+                <table class="choice_table">
                     <tr>
                     <td>
                         <label for="username">Email: </label>
@@ -44,17 +56,17 @@
                     <% if(message) { %>
                     <tr>
                         <td colspan="2">
-                            <p class="description">
+                            <span class="description">
                                 <label style="color:Red"><%= message %></label>
-                            </p>
+                            </span>
                         </td>
                     </tr>
                     <%}%>
                     <tr>
                         <td colspan="2">
-                            <p class="description">
+                            <span class="description">
                                 <a href="/users/forgot">Esqueceu sua senha?</a> | <a href="/cadastro">Não possui cadastro?</a>
-                            </p>
+                            </span>
                         </td>
                     </tr>
                 </table>
