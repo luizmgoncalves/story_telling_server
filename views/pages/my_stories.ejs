@@ -8,6 +8,16 @@
     <link rel="stylesheet" type="text/css" href="/css/layout.css">
     
     <link rel="stylesheet" type="text/css" href="/css/story.css">
+    <style>
+        .delete {
+            color: red;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .delete:hover{
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
@@ -30,9 +40,46 @@
                         <%- history.Titulo %>
                     </div>
                 </a>
+                <span>
+                    <span class="delete" id="<%- history._id %>">
+                        Deletar
+                    </span>
+                    -
+                    <a href="">
+                        Editar
+                    </a>
+                </span>
                 </div>
             <% }); %>
         </div>
     </div>
+    <script>
+        var elems = document.getElementsByClassName('delete');
+        function confirmIt () {
+            if (confirm('Tem certeza disso que quer deletar essa história?')) {
+                console.log(this.id)
+                fetch("/delete", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({id: this.id}),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.sucess){
+                        window.alert("A história foi excluída com sucesso!");
+                        document.location.reload(true)
+                    }
+                })
+                .catch((error) => {
+                    window.alert("Houve algum erro durante a exclusão da história");
+                });
+            }
+        };
+        for (var i = 0, l = elems.length; i < l; i++) {
+            elems[i].addEventListener('click', confirmIt, false);
+        }
+    </script>
 </body>
 </html>

@@ -7,6 +7,10 @@ div.encapsulator{
     width: max-content;
 }
 
+div.encapsulator div.option{
+    display: inline-block;
+}
+
 div.option{
     padding: 5px 20px 5px 20px;
     margin-top: 20px;

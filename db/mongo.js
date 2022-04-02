@@ -18,18 +18,28 @@ async function selectTitles() {
     if (!done){
         return []
     }
-    let values = await global.conn.collection(login.collection_name).find({}, {projection: {Titulo: true}}).toArray()
+    try{
+        let values = await global.conn.collection(login.collection_name).find({}, {projection: {Titulo: true}}).toArray()
+        return values
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"selectTitles\":\n" + err)
+        return []
+    }
     
-    return values
 }
 
 async function getMyTitles(user_id){
     if (!done){
         return []
     }
-    let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true}}).toArray()
-
-    return values
+    try{
+        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true}}).toArray()
+        return values
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"getMyTitles\":\n" + err)
+        return []
+    }
 }
 
 async function insertStory(story){
@@ -38,12 +48,12 @@ async function insertStory(story){
     }
 
     try{
-        await global.conn.collection(login.collection_name).insertOne(story)
+        let res = await global.conn.collection(login.collection_name).insertOne(story)
+        return res.acknowledged
     }catch(err){
+        console.log("Houve o seguinte erro durante a função \"insertStory\":\n" + err)
         return false
     }
-
-    return true
 }
 
 async function loadHistory(id) {
@@ -52,12 +62,27 @@ async function loadHistory(id) {
     }
     try{
         id = ObjectId(id)
+        let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
+        return value
     }catch(err){
+        console.log("Houve o seguinte erro durante a função \"loadHistory\":\n" + err)
         return {}
     }
-    let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
     
-    return value
 }
 
-module.exports = { selectTitles, loadHistory, getMyTitles, insertStory }
+async function deleteStory(id){
+    if (!done){
+        return false
+    }
+    try{
+        id = ObjectId(id)
+        let value = await global.conn.collection(login.collection_name).deleteOne({_id: id})
+        return value.acknowledged
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"deleteStory\":\n" + err)
+        return false
+    }
+}
+
+module.exports = { selectTitles, loadHistory, getMyTitles, insertStory, deleteStory }

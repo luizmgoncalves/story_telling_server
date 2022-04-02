@@ -50,6 +50,20 @@ router.post("/submit_story", authenticationMiddleware, (req, res)=>{
     res.json({'sucess': sucess})
 })
 
+router.post("/delete", authenticationMiddleware, async (req, res)=>{
+    let sucess = false
+
+    if(req.body.id){
+        let history_json = await mongo.loadHistory(req.body.id)
+        if (history_json && history_json.owner === req.user.id){
+            sucess = mongo.deleteStory(req.params['index'])
+        }
+    }
+
+    res.json({sucess: sucess})
+})
+
+
 router.get("/minhas_historias", authenticationMiddleware, async (req, res)=>{
     res.render("../views/pages/my_stories", 
                {

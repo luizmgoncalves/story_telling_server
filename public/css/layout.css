@@ -35,3 +35,11 @@ h1#history_title{
     margin-left: 20%;
     margin-right: 20%;
 }
+
+a{
+    color: blue;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration:underline;
+}
