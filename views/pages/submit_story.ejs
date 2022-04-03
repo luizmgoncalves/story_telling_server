@@ -25,58 +25,14 @@
         </div>
         <div id="add_choice_div">
             <button id="add_choice">Adicionar Escolha</button>
+            <button id="del_choice">Exluir última escolha</button>
             <button id="submit">Submeter História</button>
         </div>
         
     </div>
     <script src="/js/create_story.js"></script>
     <script>
-        function generate_json(){
-            json_result = {
-                "Titulo": document.getElementById('title').value,
-                "Escolhas": []
-            }
-
-            let i=0
-
-            choice = document.getElementById(`choice_table_${i}`)
-
-            for (;choice !== null;){
-                choice_json = {
-                    "id": i,
-                    "História": document.getElementById(`history_${i}`).value,
-                    "Opções": []
-                }
-                
-                let j=0
-
-                let option = document.getElementById(i.toString()+"_option_number_"+j.toString())
-                let link = document.getElementById(i.toString()+"_option_input_link_"+j.toString())
-                while (option !== null){
-                    let option_json = {"Id": j, "Texto": option.value, "link": null}
-
-                    if(link.value ==  ''){
-                        option_json.link  = null
-                    }
-                    
-                    if (link.value >= 0 && link.value < actual_id){
-                        option_json.link = Number.parseInt(link.value)
-                    }
-
-                    choice_json["Opções"].push(option_json)
-
-                    j++
-                    option = document.getElementById(i.toString()+"_option_number_"+j.toString())
-                    link = document.getElementById(i.toString()+"_option_input_link_"+j.toString())
-                }
-
-                json_result['Escolhas'].push(choice_json)
-
-                i++
-
-                choice = document.getElementById(`choice_table_${i}`)
-            }
-
+        function handle_json(json_result){
             console.log(json_result)
             navigator.clipboard.writeText(JSON.stringify(json_result))
 
@@ -98,15 +54,6 @@
                 });
 
         }
-
-        var actual_id = 0
-
-        let add_choice_button = document.getElementById('add_choice')
-        let submit_button = document.getElementById('submit')
-        submit_button.addEventListener('click', generate_json, false)
-        add_choice_button.addEventListener('click', add_choice, false)
-
-        var json_result
 
         add_choice()
     </script>
