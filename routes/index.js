@@ -1,7 +1,8 @@
 const express = require('express');
 const mongo = require("../db/mongo");
 const pg = require("../db/postgre")
-const story_validator = require('../Models/story_json_objects/story')
+const story_validator = require('../Models/story')
+const mailer = require('../Controllers/mailer')
 const router = express.Router();
 
 function authenticationMiddleware(req, res, next) {
@@ -21,6 +22,9 @@ router.get("/", async (req, res)=>{
 
 router.get("/jogar_historia/:index/", async (req, res)=>{
     let history_json = await mongo.loadHistory(req.params['index'])
+    if (!history_json.published && (!req.user || req.user.id !== history_json.owner)){
+        history_json = {}
+    }
     res.render('../views/pages/history', {"history_json": history_json, 'user': req.user ? req.user.username: null})
 })
 
@@ -40,6 +44,7 @@ router.get("/submit_story", authenticationMiddleware, (req, res)=>{
 router.post("/submit_story", authenticationMiddleware, (req, res)=>{
     result = req.body
     result.owner = req.user.id
+    result.published = false
     sucess = false
     if (story_validator.validate(result)){
         if(mongo.insertStory(result)){
@@ -90,6 +95,27 @@ router.post("/editar_historia", authenticationMiddleware, async(req, res)=>{
         let history_json = await mongo.loadHistory(req.body.id)
         if (history_json && history_json.owner === req.user.id && story_validator.validate(req.body.json)){
             sucess = mongo.updateStory(req.body.id, req.body.json)
+        }
+    }
+
+    res.json({sucess: sucess})
+})
+
+router.post("/publicar", authenticationMiddleware, async(req, res)=>{
+    let sucess = false
+
+    if(req.body.id){
+        let history_json = await mongo.loadHistory(req.body.id)
+        if (history_json && history_json.owner === req.user.id){
+            let mailOptions = {
+                from: 'Story Telling',
+                to: 'lm4academy@gmail.com',
+                subject: 'Solicitação de publicar', 
+                html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}.
+                `
+            };
+
+            sucess = mailer.sendMail(mailOptions)
         }
     }
 

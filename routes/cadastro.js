@@ -1,35 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const nodemailer = require('nodemailer');
+const mailer = require('../Controllers/mailer');
 const postgre = require('../db/postgre')
-const email_login = require('./login_email')
-
-
-var emailRegex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
-
-function isEmailValid(email) {
-    if (!email)
-        return false;
-
-    if(email.length>254)
-        return false;
-
-    var valid = emailRegex.test(email);
-    if(!valid)
-        return false;
-
-    // Further checking of some things regex can't handle
-    var parts = email.split("@");
-    if(parts[0].length>64)
-        return false;
-
-    var domainParts = parts[1].split(".");
-    if(domainParts.some(function(part) { return part.length>63; }))
-        return false;
-
-    return true;
-}
 
 /* GET cadastro page. */
 router.get('/', (req, res) => {
@@ -42,7 +14,7 @@ router.post('/', async (req, res) => {
 
     let valid = true
 
-    if (!isEmailValid(req.body.email)){
+    if (!mailer.isEmailValid(req.body.email)){
         valid = false
         data['message_err'] += "email inválido<br/>"
         data['sucess'] = false
@@ -62,14 +34,6 @@ router.post('/', async (req, res) => {
     if (valid){
         let res = await postgre.criar_novo_cadastro(req.body.username, req.body.email, req.body.password)
         if (res.id){
-            let transporter = nodemailer.createTransport({
-                service: email_login.service,
-                auth: {
-                    user: email_login.user,
-                    pass: email_login.pass
-                }
-            });
-            
             let mailOptions = {
                 from: 'Story Telling',
                 to: `${req.body["email"]}`,
@@ -79,16 +43,14 @@ router.post('/', async (req, res) => {
                 `
             };
             
-            transporter.sendMail(mailOptions, function(error, info){
-                if(error){
-                    console.log(error)
-                }
-                else{
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-            
-            data['message'] = `Um e-mail foi enviado para ${req.body["email"]} confirmação`
+            if(await mailer.sendMail(mailOptions)){
+                data['message'] = `Um e-mail foi enviado para ${req.body["email"]} confirmação`
+            }
+            else{
+                valid = false
+                data['message_err'] += "Erro ao enviar email"
+                data['sucess'] = false
+            }
         }else{
             valid = false
             data['message_err'] += "Erro ao realizar o cadastro"

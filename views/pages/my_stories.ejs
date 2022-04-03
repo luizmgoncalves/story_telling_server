@@ -17,6 +17,14 @@
         .delete:hover{
             text-decoration: underline;
         }
+        .publish {
+            color: blue;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .publish:hover{
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -48,13 +56,19 @@
                     <a href="/editar_historia/<%- history._id %>/">
                         Editar
                     </a>
+                    <% if(!history.published){ %>
+                        -  
+                        <span class="publish" id="<%- history._id %>">
+                            Publicar
+                        </span>
+                    <% } %> 
                 </span>
                 </div>
             <% }); %>
         </div>
     </div>
     <script>
-        var elems = document.getElementsByClassName('delete');
+        let elems = document.getElementsByClassName('delete');
         function confirmIt () {
             if (confirm('Tem certeza disso que quer deletar essa história?')) {
                 console.log(this.id)
@@ -79,6 +93,33 @@
         };
         for (var i = 0, l = elems.length; i < l; i++) {
             elems[i].addEventListener('click', confirmIt, false);
+        }
+
+
+        let pub = document.getElementsByClassName('publish');
+        function confirmPubIt () {
+            if (confirm('Tem certeza disso que quer publicar essa história?')) {
+                console.log(this.id)
+                fetch("/publicar", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({id: this.id}),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.sucess){
+                        window.alert("Um email foi enviado para um administrador para que ele possa publicar sua história!");
+                    }
+                })
+                .catch((error) => {
+                    window.alert("Houve algum erro durante a solicitação de publicação da história.");
+                });
+            }
+        };
+        for (var i = 0, l = pub.length; i < l; i++) {
+            pub[i].addEventListener('click', confirmPubIt, false);
         }
     </script>
 </body>

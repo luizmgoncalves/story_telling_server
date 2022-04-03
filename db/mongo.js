@@ -19,7 +19,7 @@ async function selectTitles() {
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({}, {projection: {Titulo: true}}).toArray()
+        let values = await global.conn.collection(login.collection_name).find({published: true}, {projection: {Titulo: true}}).toArray()
         return values
     }
     catch(err){
@@ -34,7 +34,7 @@ async function getMyTitles(user_id){
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true}}).toArray()
+        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true, published: true}}).toArray()
         return values
     }catch(err){
         console.log("Houve o seguinte erro durante a função \"getMyTitles\":\n" + err)
@@ -62,7 +62,7 @@ async function loadHistory(id) {
     }
     try{
         id = ObjectId(id)
-        let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
+        let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false, published: false}})
         return value
     }catch(err){
         console.log("Houve o seguinte erro durante a função \"loadHistory\":\n" + err)
