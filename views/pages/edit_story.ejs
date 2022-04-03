@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia</title>
+    <link rel="stylesheet" type="text/css" href="/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="/css/input_style.css">
+</head>
+<body>
+    <%- include('../partials/header', {user: user}); %>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title">Criador de histórias</h1>
+            <h5>Deixe sua criatividade voar!</h5>
+        </div>
+    </div>
+    <div id="content">
+        <div class="input_atom">
+            <h4>Título</h4>
+            <input class="input_text" type="text" id="title">
+        </div>
+        <div id="choices">
+        </div>
+        <div id="add_choice_div">
+            <button id="add_choice">Adicionar Escolha</button>
+            <button id="del_choice">Exluir última escolha</button>
+            <button id="submit">Submeter História</button>
+        </div>
+        
+    </div>
+    <script>
+        function handle_json(json_result){
+            params = {
+                id: "<%- story_index %>",
+                json: json_result
+            }
+
+            fetch("/editar_historia", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(params),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if(data.sucess){
+                        window.alert("A história foi submetida com sucesso!");
+                    }
+                })
+                .catch((error) => {
+                    window.alert("Houve algum erro durante o carregamento da história");
+                });
+        }
+    </script>
+    <script src="/js/create_story.js"></script>
+    <script>
+
+        var main_json = <%- JSON.stringify(story) %> 
+
+        let title = document.getElementById('title')
+        title.value = main_json.Titulo
+        let c_id
+        
+        main_json.Escolhas.forEach((choice) => {
+            add_choice()
+            c_id = actual_id-1
+            story = document.getElementById(`history_${c_id}`)
+            story.value = choice.História
+            quant_options = document.getElementById(`input_number_${c_id}`)
+            quant_options.value = choice.Opções.length
+            quant_options.dispatchEvent(new Event("change"))
+            choice.Opções.forEach((option)=>{
+                option_input = document.getElementById(`${c_id}_option_number_${option.Id}`)
+                console.log(`Adicionando "${option.Texto}" ao ${c_id}_option_number_${option.Id}`)
+                option_input.value = option.Texto
+                option_input_link = document.getElementById(`${c_id}_option_input_link_${option.Id}`)
+                if(option.link === null)
+                    option_input_link.value = -1;
+                else
+                    option_input_link.value = option.link;
+            })
+        })
+        
+    </script>
+</body>
+</html>

@@ -56,7 +56,7 @@ router.post("/delete", authenticationMiddleware, async (req, res)=>{
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
         if (history_json && history_json.owner === req.user.id){
-            sucess = mongo.deleteStory(req.params['index'])
+            sucess = mongo.deleteStory(req.body.id)
         }
     }
 
@@ -70,6 +70,30 @@ router.get("/minhas_historias", authenticationMiddleware, async (req, res)=>{
                    'user': req.user ? req.user.username: null, 
                    stories: await mongo.getMyTitles(req.user.id)
             })
+})
+
+router.get("/editar_historia/:index/", authenticationMiddleware, async(req, res)=>{
+    let history_json = await mongo.loadHistory(req.params['index'])
+    console.log(history_json)
+    r_params = {
+        'user': req.user ? req.user.username: null,
+        story: history_json,
+        story_index: req.params['index']
+    }
+    res.render('../views/pages/edit_story', r_params)
+})
+
+router.post("/editar_historia", authenticationMiddleware, async(req, res)=>{
+    let sucess = false
+
+    if(req.body.id){
+        let history_json = await mongo.loadHistory(req.body.id)
+        if (history_json && history_json.owner === req.user.id && story_validator.validate(req.body.json)){
+            sucess = mongo.updateStory(req.body.id, req.body.json)
+        }
+    }
+
+    res.json({sucess: sucess})
 })
 
 module.exports = router;

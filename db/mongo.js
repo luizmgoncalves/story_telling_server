@@ -85,4 +85,18 @@ async function deleteStory(id){
     }
 }
 
-module.exports = { selectTitles, loadHistory, getMyTitles, insertStory, deleteStory }
+async function updateStory(id, json){
+    if (!done){
+        return false
+    }
+    try{
+        id = ObjectId(id)
+        let value = await global.conn.collection(login.collection_name).updateOne({_id: id}, {$set: json})
+        return value.acknowledged
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"deleteStory\":\n" + err)
+        return false
+    }
+}
+
+module.exports = { selectTitles, loadHistory, getMyTitles, insertStory, deleteStory, updateStory }
