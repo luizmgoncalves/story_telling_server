@@ -3,10 +3,12 @@ const express = require("express")
 const loginRouter = require('./routes/login')
 const indexRouter = require('./routes/index')
 const cadastroRouter = require('./routes/cadastro')
+const favicon = require('serve-favicon');
 
 const app = express()
 
 app.use(express.static(__dirname + '/public'))
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
