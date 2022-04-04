@@ -13,7 +13,12 @@ async function connect() {
         try{
             return require('./login_postgre').login_data
         }catch(err){
-            return { connectionString: process.env.DATABASE_URL  }
+            return { 
+                connectionString: process.env.DATABASE_URL, 
+                ssl: {
+                    rejectUnauthorized: false,
+                }  
+            }
         }
         
     }
