@@ -1,5 +1,17 @@
 const nodemailer = require('nodemailer');
-const email_login = require('./login_email')
+
+function data(){
+    try{
+        const email_login = require('./login_email')
+        return email_login
+    }catch(err){
+        return {
+            service: process.env.MAILER_SERVICE,
+            user: process.env.MAILER_USER,
+            pass: process.env.MAILER_PASSWORD
+        }
+    }
+}
 
 const emailRegex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
