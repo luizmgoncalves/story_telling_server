@@ -33,8 +33,6 @@
     <script src="/js/create_story.js"></script>
     <script>
         function handle_json(json_result){
-            console.log(json_result)
-            navigator.clipboard.writeText(JSON.stringify(json_result))
 
             fetch("/submit_story", {
                     method: "POST",

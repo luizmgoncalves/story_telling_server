@@ -28,13 +28,15 @@
             <button id="del_choice">Exluir última escolha</button>
             <button id="submit">Gerar json</button>
         </div>
-        
+        <span id="json-res">
+        </span>    
     </div>
+    
     <script>
         function handle_json(json_result){
-            console.log(json_result)
-            navigator.clipboard.writeText(JSON.stringify(json_result))
-            window.alert("A história foi carregada na sua área de transferência, agora você pode ir na página \"Jogar história\" e colar lá para jogar a história que você acabou de fazer.")
+            let el = document.getElementById('json-res')
+            el.innerText = JSON.stringify(json_result)
+            window.alert("A história foi gerada, agora você pode ir na página \"Jogar história\" e colar lá para jogar a história que você acabou de fazer.")
         }
     </script>
     <script src="/js/create_story.js"></script>
