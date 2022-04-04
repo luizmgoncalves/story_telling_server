@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const res = require('express/lib/response');
 const moment = require("moment");
-const login_data = require('./login_postgre')
 
 async function connect() {
     if (global.connection){
@@ -9,8 +8,17 @@ async function connect() {
     }
 
     const { Pool } = require('pg');
+
+    function data(){
+        try{
+            return require('./login_postgre').login_data
+        }catch(err){
+            return { connectionString: process.env.DATABASE_URL  }
+        }
+        
+    }
     
-    const pool = new Pool(login_data.login_data);
+    const pool = new Pool(data());
 
     //apenas testando a conexão
     console.log("Criou pool de conexões no PostgreSQL!");
