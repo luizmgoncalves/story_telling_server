@@ -38,11 +38,13 @@ function isEmailValid(email) {
     return true;
 }
 
+const edata = data()
+
 const transporter = nodemailer.createTransport({
-    service: email_login.service,
+    service: edata.service,
     auth: {
-        user: email_login.user,
-        pass: email_login.pass
+        user: edata.user,
+        pass: edata.pass
     }
 });
 
