@@ -62,7 +62,7 @@ async function loadHistory(id) {
     }
     try{
         id = ObjectId(id)
-        let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false, published: false}})
+        let value = await global.conn.collection(login.collection_name).findOne({_id: id}, {projection: {_id: false}})
         return value
     }catch(err){
         console.log("Houve o seguinte erro durante a função \"loadHistory\":\n" + err)
