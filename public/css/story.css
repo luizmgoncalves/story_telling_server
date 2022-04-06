@@ -20,7 +20,7 @@ div.option{
 
     transition: padding 0.25s;
 
-    width: max-content;
+    width: fit-content;
     color: white;
     font-size: 15px;
     text-indent: 0px;
