@@ -11,7 +11,7 @@
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
-    <%- include('../partials/create_story_kernel'); %>
+    <%- include('../partials/create_story_kernel', {submit: false}); %>
     
     <script>
         function handle_json(json_result){

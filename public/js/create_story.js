@@ -21,17 +21,19 @@ function show_options(){
 
     if(this.value > i){
         for (;i<this.value;i++){
-            let el = document.createElement('tr')
-            let el2 = document.createElement('tr')
+            let el = document.createElement('div')
+            el.className = 'mb-3 form_item'
+            let el2 = document.createElement('div')
+            el2.className = 'mb-3 form_item'
             el.id = c_num + "_option_"+i.toString()
             el2.id = c_num + "_option_link_"+i.toString()
     
             el.innerHTML = `
-                        <td>Opção ${i}: </td> 
-                        <td><input type="text" id="${c_num}_option_number_${i}"></td>`
+                        <label>Opção ${i}: </label> 
+                        <textarea rows="3" style="width:100%;" id="${c_num}_option_number_${i}">`
                         el2.innerHTML = `
-                        <td>Link ${i}: </td> 
-                        <td><input type="number" value="-1" id="${c_num}_option_input_link_${i}"></td>
+                        <label>Link ${i}: </label> 
+                        <input type="number" value="-1" id="${c_num}_option_input_link_${i}" style="width:80px;">
                         `
                         
             table.appendChild(el)
@@ -57,20 +59,24 @@ function add_choice() {
 
     new_choice.innerHTML = `
         <h4>Escolha</h4>
-        <table class="choice_table" id="choice_table_${actual_id}">
-            <tr>
-                <td>id: </td>
-                <td><span id="id_${actual_id}">${actual_id}</span></td>
-            </tr>
-            <tr>
-                <td>História: </td>
-                <td><textarea class="input_text" id="history_${actual_id}" cols="30" rows="5" style="width:100%;"></textarea></td>
-            </tr>
-            <tr>
-                <td>Quantidade de opções: </td>
-                <td><input type="number" class="input_number" id="input_number_${actual_id}"  min="0" max="5"></td>
-            </tr>
-        </table>
+        <div class="container" id="choice_table_${actual_id}">
+            
+            <div class="mb-3 form_item">
+                <label>id: </label>
+                <span id="id_${actual_id}">${actual_id}</span>
+            </div>
+            
+            <div class="mb-3 form_item">
+                <label>História: </label>
+                <textarea id="history_${actual_id}" cols="30" rows="5" style="width:100%;"></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label>Quantidade de opções: </label>
+                <input type="number" class="input_number" id="input_number_${actual_id}"  min="0" max="5">
+            </div>
+            
+        </div>
     `
 
     parent = document.getElementById('choices')
