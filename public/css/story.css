@@ -4,7 +4,7 @@ p{
 }
 
 div.encapsulator{
-    width: max-content;
+    width: fit-content;
 }
 
 div.encapsulator div.option{
