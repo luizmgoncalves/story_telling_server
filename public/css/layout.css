@@ -8,6 +8,11 @@ h5{
     font-family:'Lucida Handwriting';
 }
 
+.ex_title{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .title{
     padding: 10px 30px 10px 30px;
 
