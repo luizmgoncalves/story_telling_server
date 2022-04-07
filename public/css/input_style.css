@@ -27,6 +27,10 @@ div.input_atom{
     border-spacing: 10px;
 }
 
+input{
+    width: 100%;
+}
+
 #add_choice_div{
     width: 100%;
     text-align: center;
@@ -35,4 +39,9 @@ div.input_atom{
 
 .form_item{
     margin-top: 10px;
+}
+
+
+.btn{
+    width: fit-content;
 }

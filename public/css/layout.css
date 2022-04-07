@@ -1,6 +1,8 @@
 body{
     background-color: rgb(245, 245, 245);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 h5{
     text-align: center;
