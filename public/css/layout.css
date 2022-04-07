@@ -9,11 +9,14 @@ h5{
 }
 
 .title{
-    padding-left: 20px 5px 20px 5px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 10px;
+    padding: 10px 30px 10px 30px;
+
+    border-radius: 3px;
+
+    background-color: rgb(218, 218, 218);
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
 
     margin-top: 50px;
 
@@ -32,7 +35,6 @@ h1#history_title{
     margin-left: auto;
     margin-right: auto;
     max-width: 900px;
-    width: fit-content;
 }
 
 a{

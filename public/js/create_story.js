@@ -52,6 +52,7 @@ function show_options(){
 function add_choice() {
     let new_choice = document.createElement("div")
     new_choice.className = "input_atom"
+    new_choice.style.maxWidth = '600px'
     console.log(actual_id)
 
     new_choice.innerHTML = `
@@ -63,7 +64,7 @@ function add_choice() {
             </tr>
             <tr>
                 <td>História: </td>
-                <td><textarea class="input_text" id="history_${actual_id}" cols="30" rows="5"></textarea></td>
+                <td><textarea class="input_text" id="history_${actual_id}" cols="30" rows="5" style="width:100%;"></textarea></td>
             </tr>
             <tr>
                 <td>Quantidade de opções: </td>

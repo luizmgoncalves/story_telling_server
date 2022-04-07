@@ -7,6 +7,12 @@
     <title>Cadastro</title>
     <link rel="stylesheet" type="text/css" href="/css/input_style.css">
     <%- include('../partials/head') %> 
+    <style>
+        p.description{
+            font-size: 16px;
+            text-indent: 0px;
+        }
+    </style>
     </head>
   <body>
     <%- include('../partials/header', {user: null}); %>
@@ -14,69 +20,43 @@
         <div class="title">
             <h1 id="history_title">Cadastro</h1>
         </div>
-        <style>
-            p.description{
-                font-size: 16px;
-                text-indent: 0px;
-            }
-        </style>
     </div>
     <div id="content">
         
         <p style="color:red;"> <span style="text-decoration: underline; font-size: large;">Atenção: </span> <br> <br> &#8594; Esse site ainda está em fase de desenvolvimento e não guarda nenhuma informação sensível, <span style="font-weight: bold;">não use uma senha que você usa em outros sites por segurança.</span><br>Existe alguma chance de seus dados serem descartados numa futura atualização.</p>
-        <div class="input_atom">
+        <div class="input_atom container" style="max-width: 400px;">
             <form action="/cadastro" method="POST">
-                <table class="choice_table">
-                    <% if(!sucess) { %>
-                    <tr>
-                        <td>
-                            <label for="username">Nome de usuário: </label>
-                        </td>
-                        <td>
-                            <input name="username" type="text" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="email">Email: </label>
-                        </td>
-                        <td>
-                            <input name="email" type="text" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="password">Senha: </label>
-                        </td>
-                        <td>
-                            <input name="password" type="password" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="Cadastrar" />
-                        </td>
-                    </tr>
-                    <%}%>
-                    <% if(message_err.length > 0) { %>
-                    <tr>
-                        <td colspan="2">
-                            <p class="description">
-                                <label style="color:Red"><%- message_err %></label>
-                            </p>
-                        </td>
-                    </tr>
-                    <%}%>
-                    <% if(message) { %>
-                    <tr>
-                        <td colspan="2">
-                            <p class="description">
-                                <label style="color:Green"><%= message %></label>
-                            </p>
-                        </td>
-                    </tr>
-                    <%}%>
-                </table>
+                <% if(!sucess) { %>
+                    <div class="form-group form_item">
+                    <label for="username">Nome de usuário: </label>    
+                    <input name="username" type="text" class="form-control" placeholder="username"/>
+                </div>
+                <div class="form-group form_item">
+                    <label for="email">Email: </label>
+                    <input name="email" type="text" class="form-control" placeholder="email@exemplo.com"/>
+                </div>
+                <div class="form-group form_item">
+                    <label for="password">Senha: </label>
+                    <input name="password" type="password" class="form-control" placeholder="senha"/>
+                </div>
+                    
+                <input type="submit" value="Cadastrar" class="btn btn-primary form_item"/>
+                    
+                <%}%>
+                <% if(message_err.length > 0) { %>
+                <div class="form-group">
+                    <p class="description">
+                        <label style="color:Red"><%- message_err %></label>
+                    </p>
+                </div>
+                <%}%>
+                <% if(message) { %>
+                <div class="form-group">
+                    <p class="description">
+                        <label style="color:Green"><%= message %></label>
+                    </p>
+                </div>
+                <%}%>
             </form>
         </div>
     </div>

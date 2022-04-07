@@ -10,26 +10,7 @@
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
-    <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title">Criador de histórias</h1>
-            <h5>Deixe sua criatividade voar!</h5>
-        </div>
-    </div>
-    <div id="content">
-        <div class="input_atom">
-            <h4>Título</h4>
-            <input class="input_text" type="text" id="title">
-        </div>
-        <div id="choices">
-        </div>
-        <div id="add_choice_div">
-            <button id="add_choice">Adicionar Escolha</button>
-            <button id="del_choice">Exluir última escolha</button>
-            <button id="submit">Submeter História</button>
-        </div>
-        
-    </div>
+    <%- include('../partials/create_story_kernel'); %>
     <script>
         function handle_json(json_result){
             params = {
