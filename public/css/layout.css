@@ -1,8 +1,6 @@
 body{
     background-color: rgb(245, 245, 245);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 h5{
     text-align: center;
@@ -36,6 +34,8 @@ h1#history_title{
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    margin-left: 10px;
+    margin-right: 10px;
     max-width: 900px;
 }
 
