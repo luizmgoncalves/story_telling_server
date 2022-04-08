@@ -14,9 +14,18 @@
     <div id="add_choice_div">
         <button id="add_choice" class="btn btn-outline-dark">Adicionar Escolha</button>
         <button id="del_choice" class="btn btn-outline-dark">Exluir última escolha</button>
-        <% if(submit){ %>
-            <button id="submit" class="btn btn-outline-dark">Submeter História</button>
-        <% } %> 
+        <button id="submit" class="btn btn-outline-dark">
+            <% if(submit){ %>
+                Submeter História
+            <% }else{ %> 
+                Gerar json
+            <% } %> 
+        </button>
+
+        <% if(!submit){ %>
+            <p>O código da história está aqui:<br> <span id="json-res"></span></p>
+        <% }%> 
+        
     </div>
     
 </div>
