@@ -3,6 +3,7 @@ const express = require("express")
 const loginRouter = require('./routes/login')
 const indexRouter = require('./routes/index')
 const cadastroRouter = require('./routes/cadastro')
+const adminRouter = require('./routes/admin')
 const favicon = require('serve-favicon');
 
 const app = express()
@@ -32,6 +33,8 @@ app.use(passport.session());
 app.use('/login', loginRouter);
 
 app.use('/cadastro', cadastroRouter);
+
+app.use('/admin', adminRouter);
 
 app.use('/', indexRouter);
 

@@ -135,6 +135,26 @@ async function find_user_by_email(email){
     }
 }
 
+async function is_admin(id){
+    let client
+    try{
+        client = await connect()
+
+        let res =  await client.query("SELECT * FROM users_sch.admins WHERE user_id = $1",[id])
+
+        await client.release()
+
+        if (res.rows.length==0){
+            return false
+        }
+        return true
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"find_user_by_id\":\n" + err)
+        return false
+    }
+}
+
 async function clean_database(){
     try{
         let client = await connect()
@@ -148,4 +168,4 @@ async function clean_database(){
     }
 }
 
-module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email}
+module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin}

@@ -113,7 +113,7 @@ router.post("/publicar", authenticationMiddleware, async(req, res)=>{
                 from: 'Story Telling',
                 to: 'lm4academy@gmail.com',
                 subject: 'Solicitação de publicar', 
-                html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}.
+                html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}, acesse em <a href='http://${req.get('Host')}${req.originalUrl}/confirmar?conid=${res.id}'>confirmar</a>   .
                 `
             };
 
