@@ -79,7 +79,9 @@ router.get("/minhas_historias", authenticationMiddleware, async (req, res)=>{
 
 router.get("/editar_historia/:index/", authenticationMiddleware, async(req, res)=>{
     let history_json = await mongo.loadHistory(req.params['index'])
-    console.log(history_json)
+    if ((!req.user || req.user.id !== history_json.owner)){
+        history_json = {}
+    }
     r_params = {
         'user': req.user ? req.user.username: null,
         story: history_json,
