@@ -27,7 +27,7 @@
         var current_choice = 0
         var options
         var main_json
-        main_json = <%- JSON.stringify(history_json) %> 
+        main_json = JSON.parse("<%- JSON.stringify(history_json) %>")
         history_initialization()
         load_history()
     </script>
