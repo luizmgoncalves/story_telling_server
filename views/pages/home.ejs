@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Telling</title>
+    <%- include('../partials/head') %> 
+    <link rel="stylesheet" href="/css/story.css">
+</head>
+<body>
+    <%- include('../partials/header', {user: user}); %>
+    <div class="ex_title">
+        <div class="title">
+            <h1 id="history_title">Home</h1>
+        </div>
+    </div>
+
+    <div id="content">
+        <p>
+            Seja muito bem vindo à plataforma StoryTelling, uma plataforma onde você pode deixar sua criatividade voar e pode compartilhar e também ler as mais fantásticas 🐉⚔️🏰🧙🏻‍♂️, mais assustadoras 😱👻🧟, mais emocionantes 🥺🌹😭, mais românticas 🌼💌💕, mais misteriosas 🕵🏽🔮 e engraçadas 😆😂🤣 histórias possíveis.
+        </p>
+        <br>
+        <h3>Não uma história comum</h3>
+        <br>
+        <p>
+            A plataforma StoryTelling não somente guarda histórias comuns, as histórias tem <span style="font-weight: bold;">ESCOLHAS</span> 🤯🤯🤯, quando estiver escrevendo ou lendo uma história poderá fazer escolhas e mudar totalmente o rumo da história. Não queremos limitar sua criatividade, você pode criar histórias lineares, ou com escolhas que mudam completamente a história, ou com escolhas que mudam pequenas cituações, entre outras coisas... você decide!
+        </p>
+        
+        <p>
+            Você pode naturalmente buscar pelas nossas principais histórias na página "<a href="/">Principais Histórias</a>" e explorar todas as diversas possibilidades de escolhas e ramificações que cada histórias pode ter.
+        </p>
+
+        <img src="/images/choice_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
+
+        <br><br>
+            
+        <p>
+             Agora, se você também tem o anseio de <span style="font-weight: bold;">criar histórias</span> também, você pode se <a href="/cadastro">cadastrar</a> e então ter histórias vinculadas ao seu usuário!
+        </p>
+        <p>
+             As histórias são separadas em núcles, as escolhas. Cada escolha tem um único ID, um texto, e suas opções. Cada opção tem o seu texto e um link para outra escolha, esse link deve conter o ID da escolha à qual ela leva, se esse ID for um valor inválido a escolha não levará a lugar algum.
+            <br>
+             Veja um simples exemplo abaixo:
+        </p>
+
+        <img src="/images/json_creator_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
+
+        <br><br>
+
+        <p>
+            Se não quiser se cadastrar, você pode também <a href="/criar_historia">criar histórias localmente</a> (no seu computador), para jogá-las você deve copiar o código gerado pela página e colar na página <a href="/jogar_historia">Jogar História</a>.
+       </p>
+
+    </div>
+</body>
+</html>
