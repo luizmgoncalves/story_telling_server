@@ -39,7 +39,7 @@
     <script src="/js/create_story.js"></script>
     <script>
 
-        var main_json = JSON.parse(`<%- JSON.stringify(story) %>`)
+        var main_json = <%- JSON.stringify(story) %>
 
         let title = document.getElementById('title')
         title.value = main_json.Titulo

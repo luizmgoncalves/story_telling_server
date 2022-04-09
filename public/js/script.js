@@ -8,13 +8,13 @@ function option_clicked() {
 
 function history_initialization(){
     var title = document.getElementById("history_title")
-    title.innerText = main_json.Titulo
+    title.innerHTML = main_json.Titulo
 }
 
 function load_history(){
     var content = document.getElementById("History")
     
-    content.innerText = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História
+    content.innerHTML = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História
 
     options = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).Opções
 
@@ -22,10 +22,10 @@ function load_history(){
 
     if(options.length <= 1){
         choice_p = document.getElementById("choice")
-        choice_p.innerText = ""
+        choice_p.innerHTML = ""
     }else{
         choice_p = document.getElementById("choice")
-        choice_p.innerText = "O que você escolhe?"
+        choice_p.innerHTML = "O que você escolhe?"
     }
 
     options_div.innerHTML = ""
@@ -34,7 +34,7 @@ function load_history(){
         let el = document.createElement('div')
         el.className = "option"
         el.id = option.Id
-        el.innerText = `${option.Texto}`
+        el.innerHTML = `${option.Texto}`
         el.addEventListener('click', option_clicked, false)
         options_div.appendChild(el)
     });
