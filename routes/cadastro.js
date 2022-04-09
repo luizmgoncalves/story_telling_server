@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mailer = require('../Controllers/mailer');
 const postgre = require('../db/postgre')
+const xss = require('xss')
 
 /* GET cadastro page. */
 router.get('/', (req, res) => {
@@ -11,6 +12,8 @@ router.get('/', (req, res) => {
 /* POST cadastro page */
 router.post('/', async (req, res) => {
     let data = { message: null, message_err: '', sucess: true}
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     let valid = true
 

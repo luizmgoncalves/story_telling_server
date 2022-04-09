@@ -1,9 +1,10 @@
-const express = require('express');
-const mongo = require("../db/mongo");
+const express = require('express')
+const mongo = require("../db/mongo")
 const pg = require("../db/postgre")
 const story_validator = require('../Models/story')
 const mailer = require('../Controllers/mailer')
-const router = express.Router();
+const router = express.Router()
+const xss = require('xss')
 
 function authenticationMiddleware(req, res, next) {
     if (req.isAuthenticated()){
@@ -11,6 +12,13 @@ function authenticationMiddleware(req, res, next) {
     }
     res.redirect('/login?fail=true');
   }
+
+router.get("/home", (req, res)=>{
+    let vars = {
+        'user': req.user ? req.user.username: null
+    }
+    res.render("../views/pages/home", vars)
+})
 
 router.get("/", async (req, res)=>{
     let vars = {
@@ -42,10 +50,14 @@ router.get("/submit_story", authenticationMiddleware, (req, res)=>{
 })
 
 router.post("/submit_story", authenticationMiddleware, (req, res)=>{
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
+
     result = req.body
     result.owner = req.user.id
     result.published = false
     sucess = false
+    
     if (story_validator.validate(result)){
         if(mongo.insertStory(result)){
             sucess = true
@@ -57,6 +69,8 @@ router.post("/submit_story", authenticationMiddleware, (req, res)=>{
 
 router.post("/delete", authenticationMiddleware, async (req, res)=>{
     let sucess = false
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
@@ -92,6 +106,8 @@ router.get("/editar_historia/:index/", authenticationMiddleware, async(req, res)
 
 router.post("/editar_historia", authenticationMiddleware, async(req, res)=>{
     let sucess = false
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
@@ -105,6 +121,8 @@ router.post("/editar_historia", authenticationMiddleware, async(req, res)=>{
 
 router.post("/publicar", authenticationMiddleware, async(req, res)=>{
     let sucess = false
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
