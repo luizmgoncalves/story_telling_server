@@ -1,3 +1,10 @@
+function HtmlDecode(s){
+    let el = document.createElement("div");
+    el.innerHTML = s;
+    s = el.innerText;
+    return s;
+}
+
 function option_clicked() {
     console.log(options[this.id].link, options[this.id].Texto)
     if (options[this.id].link !== null){
@@ -8,13 +15,13 @@ function option_clicked() {
 
 function history_initialization(){
     var title = document.getElementById("history_title")
-    title.innerHTML = main_json.Titulo
+    title.innerText = HtmlDecode(main_json.Titulo)
 }
 
 function load_history(){
     var content = document.getElementById("History")
     
-    content.innerHTML = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História
+    content.innerText = HtmlDecode(main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História)
 
     options = main_json.Escolhas.find(ob=>{return ob.id==current_choice}).Opções
 
@@ -22,10 +29,10 @@ function load_history(){
 
     if(options.length <= 1){
         choice_p = document.getElementById("choice")
-        choice_p.innerHTML = ""
+        choice_p.innerText = ""
     }else{
         choice_p = document.getElementById("choice")
-        choice_p.innerHTML = "O que você escolhe?"
+        choice_p.innerText = "O que você escolhe?"
     }
 
     options_div.innerHTML = ""
@@ -34,7 +41,7 @@ function load_history(){
         let el = document.createElement('div')
         el.className = "option"
         el.id = option.Id
-        el.innerHTML = `${option.Texto}`
+        el.innerText = HtmlDecode(`${option.Texto}`)
         el.addEventListener('click', option_clicked, false)
         options_div.appendChild(el)
     });
