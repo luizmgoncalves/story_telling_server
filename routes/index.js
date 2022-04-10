@@ -50,6 +50,9 @@ router.get("/submit_story", authenticationMiddleware, (req, res)=>{
 })
 
 router.post("/submit_story", authenticationMiddleware, (req, res)=>{
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
+
     result = req.body
     result.owner = req.user.id
     result.published = false
@@ -66,6 +69,8 @@ router.post("/submit_story", authenticationMiddleware, (req, res)=>{
 
 router.post("/delete", authenticationMiddleware, async (req, res)=>{
     let sucess = false
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
@@ -101,6 +106,8 @@ router.get("/editar_historia/:index/", authenticationMiddleware, async(req, res)
 
 router.post("/editar_historia", authenticationMiddleware, async(req, res)=>{
     let sucess = false
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
 
     if(req.body.id){
         let history_json = await mongo.loadHistory(req.body.id)
