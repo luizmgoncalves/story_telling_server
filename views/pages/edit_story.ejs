@@ -41,7 +41,7 @@
 
         function HtmlDecode(s){
             let el = document.createElement("div");
-            el.innerHtml = el.textContent = s;
+            el.innerHtml = s;
             s = el.innerText;
             return s;
         }
