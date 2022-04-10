@@ -12,6 +12,14 @@
     <%- include('../partials/header', {user: user}); %>
     <%- include('../partials/create_story_kernel', {submit: true}); %>
     <script>
+        function HtmlDecode(s)
+        {
+            var el = document.createElement("div");
+            el.innerHtml = s;
+            s = el.innerText;
+            return s;
+        }
+
         function handle_json(json_result){
             params = {
                 id: "<%- story_index %>",
@@ -49,14 +57,14 @@
             add_choice()
             c_id = actual_id-1
             story = document.getElementById(`history_${c_id}`)
-            story.value = choice.História
+            story.value = HtmlDecode(choice.História)
             quant_options = document.getElementById(`input_number_${c_id}`)
             quant_options.value = choice.Opções.length
             quant_options.dispatchEvent(new Event("change"))
             choice.Opções.forEach((option)=>{
                 option_input = document.getElementById(`${c_id}_option_number_${option.Id}`)
                 console.log(`Adicionando "${option.Texto}" ao ${c_id}_option_number_${option.Id}`)
-                option_input.value = option.Texto
+                option_input.value = HtmlDecode(option.Texto)
                 option_input_link = document.getElementById(`${c_id}_option_input_link_${option.Id}`)
                 if(option.link === null)
                     option_input_link.value = -1;
