@@ -12,14 +12,6 @@
     <%- include('../partials/header', {user: user}); %>
     <%- include('../partials/create_story_kernel', {submit: true}); %>
     <script>
-        function HtmlDecode(s)
-        {
-            var el = document.createElement("div");
-            el.innerHtml = s;
-            s = el.innerText;
-            return s;
-        }
-
         function handle_json(json_result){
             params = {
                 id: "<%- story_index %>",
@@ -46,6 +38,13 @@
     </script>
     <script src="/js/create_story.js"></script>
     <script>
+
+        function HtmlDecode(s){
+            let el = document.createElement("div");
+            el.innerHtml = s;
+            s = el.innerText;
+            return s;
+        }
 
         var main_json = <%- JSON.stringify(story) %>
 
