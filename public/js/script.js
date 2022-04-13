@@ -13,6 +13,11 @@ function option_clicked() {
     }
 }
 
+function return_all(){
+    current_choice = 0;
+    load_history()
+}
+
 function history_initialization(){
     var title = document.getElementById("history_title")
     title.innerText = HtmlDecode(main_json.Titulo)
@@ -47,3 +52,6 @@ function load_history(){
     });
     
 }
+
+return_all_b = document.getElementById('return')
+return_all_b.addEventListener('click', return_all, false)
