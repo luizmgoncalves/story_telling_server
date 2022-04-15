@@ -38,10 +38,9 @@ router.get("/jogar_historia/:index/", async (req, res)=>{
     }
 
     if(history_json._id !== undefined){
-        likes = await pg.story_likes(history_json._id.toHexString())
-        history_json['likes'] = likes === false ? 0 : likes;
-        have_liked = req.user ? await pg.have_liked(history_json._id.toHexString(), req.user.id) : false
-        history_json['have_liked'] = have_liked
+        let likes = await pg.story_likes(history_json._id.toHexString(), req.user ? req.user.id : null)
+        history_json['likes'] = likes.likes
+        history_json['have_liked'] = likes.have_liked
     }
 
     res.render('../views/pages/history', {"history_json": history_json, 'user': req.user ? req.user.username: null})
