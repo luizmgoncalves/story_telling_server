@@ -17,6 +17,18 @@
     </div>
 
     <div id="content">
+        <% if(history_json.likes){ %>
+        <div class="container" style="font-size:20px; margin-left: 10px;margin-top: -20px;"> 
+            <% if(!history_json.have_liked){ %>
+                <div id="like-button">🖤</div>
+            <% }else{ %>
+                <div id="like-button" class="liked">❤️</div>
+            <% } %>    
+            &MediumSpace; <span id="likes"><%- history_json.likes %> </span>
+        </div>  
+        <hr>
+        <% } %>
+
         <p id="History"></p>
         <p id="choice">O que você escolhe?</p>
         <div id="options"></div>
@@ -34,5 +46,42 @@
         history_initialization()
         load_history()
     </script>
+    <% if(user){ %>
+        <script>
+            var state = main_json.have_liked
+    
+            document.getElementById('like-button').addEventListener('click', (el) => {
+                el.currentTarget.classList.toggle('liked');
+                let offset = el.currentTarget.classList.value === 'liked'? 1 : 0;
+                offset = main_json.have_liked ? --offset: offset;
+                if(!(el.currentTarget.classList.value === 'liked')){
+                    document.getElementById('like-button').innerText ='🖤';
+                    state = false
+                }else{
+                    document.getElementById('like-button').innerText ='❤️';
+                    state = true
+                }
+                
+                document.getElementById('likes').innerText = Number.parseInt(main_json.likes) + offset;
+            });
+    
+            window.onbeforeunload = function(e) {
+                call_like();
+            }
+            
+            async function call_like(){
+                if(state === main_json.have_liked){
+                    return
+                }
+                result = await fetch("/like", {
+                            method: "POST",
+                            headers: {
+                            "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({story_id: main_json._id, value: state}),
+                        })
+            }
+        </script>
+        <% } %>
 </body>
 </html>

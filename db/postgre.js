@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-const res = require('express/lib/response');
+const mongo = require("./mongo");
 const moment = require("moment");
 
 async function connect() {
@@ -135,6 +135,69 @@ async function find_user_by_email(email){
     }
 }
 
+async function story_likes(story_id){
+    if (Object.keys(await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
+        return false
+    }
+    let client
+    try{
+        client = await connect()
+
+        res = await client.query("SELECT COUNT(*) FROM story_metadata.likes WHERE story_id = $1",[story_id])
+
+        await client.release()
+
+        return res.rows[0]['count']
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"find_user_by_id\":\n" + err)
+        return false
+    }
+}
+
+async function have_liked(story_id, user_id){
+    if (Object.keys(await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
+        return false
+    }
+    let client
+    try{
+        client = await connect()
+
+        res = await client.query("SELECT COUNT(*) FROM story_metadata.likes WHERE story_id = $1 AND user_id = $2",[story_id, user_id])
+
+        await client.release()
+        return res.rows[0]['count'] !== '0';
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"have_liked\":\n" + err)
+        return false
+    }
+}
+
+async function like(story_id, user_id, unlike=false){
+    if (Object.keys( await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
+        return false
+    }
+    
+    let client
+    try{
+        client = await connect()
+
+        if(!unlike){
+            await client.query("INSERT INTO story_metadata.likes (story_id, user_id) VALUES($1, $2)",[story_id, user_id])
+        }else{
+            await client.query("DELETE FROM story_metadata.likes WHERE story_id = $1 AND user_id = $2",[story_id, user_id])
+        }
+        await client.release()
+
+        return true
+    }
+    catch(err){
+        console.log("Houve o seguinte erro durante a função \"like\":\n" + err)
+        return false
+    }
+}
+
 async function is_admin(id){
     let client
     try{
@@ -168,4 +231,4 @@ async function clean_database(){
     }
 }
 
-module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin}
+module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin, story_likes, have_liked, like}

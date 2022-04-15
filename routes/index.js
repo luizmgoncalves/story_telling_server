@@ -21,8 +21,10 @@ router.get("/home", (req, res)=>{
 })
 
 router.get("/", async (req, res)=>{
+    stories = await mongo.selectTitles()
+    
     let vars = {
-        stories: await mongo.selectTitles(), 
+        stories: stories, 
         'user': req.user ? req.user.username: null
     }
     res.render("../views/pages/index", vars)
@@ -30,9 +32,18 @@ router.get("/", async (req, res)=>{
 
 router.get("/jogar_historia/:index/", async (req, res)=>{
     let history_json = await mongo.loadHistory(req.params['index'])
+
     if (!history_json.published && (!req.user || req.user.id !== history_json.owner)){
         history_json = {}
     }
+
+    if(history_json._id !== undefined){
+        likes = await pg.story_likes(history_json._id.toHexString())
+        history_json['likes'] = likes === false ? 0 : likes;
+        have_liked = req.user ? await pg.have_liked(history_json._id.toHexString(), req.user.id) : false
+        history_json['have_liked'] = have_liked
+    }
+
     res.render('../views/pages/history', {"history_json": history_json, 'user': req.user ? req.user.username: null})
 })
 
@@ -65,6 +76,14 @@ router.post("/submit_story", authenticationMiddleware, (req, res)=>{
     }
 
     res.json({'sucess': sucess})
+})
+
+router.post("/like", authenticationMiddleware, async (req, res)=>{
+    let secured = xss(JSON.stringify(req.body))
+    req.body = JSON.parse(secured)
+    let state = await pg.like(req.body.story_id, req.user.id, !req.body.value)
+
+    res.json({'sucess': state})
 })
 
 router.post("/delete", authenticationMiddleware, async (req, res)=>{

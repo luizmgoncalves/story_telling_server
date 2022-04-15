@@ -17,6 +17,7 @@ div.option{
     border-radius: 10px;
     background-color: black;
     cursor: pointer;
+    user-select: none;
 
     transition: padding 0.25s;
 
