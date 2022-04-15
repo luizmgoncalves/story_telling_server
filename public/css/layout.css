@@ -29,8 +29,14 @@ h5{
 }
 
 h1#history_title{
-    font-family:'Lucida Handwriting';
+    font-family:'Lucida Handwriting Italic';
 }
+
+@font-face {
+    font-family: 'Lucida Handwriting Italic';
+    src: url('/font/Lucida Handwriting Italic.ttf');
+}
+
 #content{
     margin-top: 50px;
     margin-left: auto;
