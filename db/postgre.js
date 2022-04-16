@@ -128,7 +128,7 @@ async function find_user_by_email(email){
     }
 }
 
-async function story_likes(story_id, user_id){
+async function my_likes(story_id, user_id){
     if (Object.keys(await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
         return false
     }
@@ -136,24 +136,12 @@ async function story_likes(story_id, user_id){
     try{
         pool = await connect()
 
-        let res = {}
+        let have_liked = await pool.query("SELECT COUNT(*) FROM story_metadata.likes WHERE story_id = $1 AND user_id = $2",[story_id, user_id])
 
-        res.likes = await pool.query("SELECT COUNT(*) FROM story_metadata.likes WHERE story_id = $1",[story_id])
-
-        res.likes = res.likes.rows[0]['count']
-
-        if(user_id !== null){
-            res.have_liked = await pool.query("SELECT COUNT(*) FROM story_metadata.likes WHERE story_id = $1 AND user_id = $2",[story_id, user_id])
-
-            res.have_liked = res.have_liked.rows[0]['count'] === '1'
-        }else{
-            res.have_liked = false
-        }
-
-        return res
+        return have_liked.rows[0]['count'] === '1'
     }
     catch(err){
-        console.log("Houve o seguinte erro durante a função \"find_user_by_id\":\n" + err)
+        console.log("Houve o seguinte erro durante a função \"my_likes\":\n" + err)
         return false
     }
 }
@@ -167,10 +155,13 @@ async function like(story_id, user_id, unlike=false){
     try{
         pool = await connect()
 
+
         if(!unlike){
             await pool.query("INSERT INTO story_metadata.likes (story_id, user_id) VALUES($1, $2)",[story_id, user_id])
+            mongo.like(story_id, 1)
         }else{
             await pool.query("DELETE FROM story_metadata.likes WHERE story_id = $1 AND user_id = $2",[story_id, user_id])
+            mongo.like(story_id, -1)
         }
 
         return true
@@ -211,4 +202,4 @@ async function clean_database(){
     }
 }
 
-module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin, story_likes, like}
+module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin, my_likes, like}

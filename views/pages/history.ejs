@@ -17,7 +17,6 @@
     </div>
 
     <div id="content">
-        <% if(history_json.likes){ %>
         <div class="container" style="font-size:20px; margin-left: 10px;margin-top: -20px;"> 
             <% if(!history_json.have_liked){ %>
                 <div id="like-button">🖤</div>
@@ -27,7 +26,6 @@
             &MediumSpace; <span id="likes"><%- history_json.likes %> </span>
         </div>  
         <hr>
-        <% } %>
 
         <p id="History"></p>
         <p id="choice">O que você escolhe?</p>

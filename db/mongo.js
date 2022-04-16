@@ -19,7 +19,7 @@ async function selectTitles() {
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({published: true}, {projection: {Titulo: true}}).toArray()
+        let values = await global.conn.collection(login.collection_name).find({published: true}, {projection: {Titulo: true, likes: true}}).sort({likes: -1}).limit(7).toArray()
         return values
     }
     catch(err){
@@ -34,7 +34,7 @@ async function getMyTitles(user_id){
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true, published: true}}).toArray()
+        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true, published: true, likes: true}}).toArray()
         return values
     }catch(err){
         console.log("Houve o seguinte erro durante a função \"getMyTitles\":\n" + err)
@@ -71,6 +71,20 @@ async function loadHistory(id) {
     
 }
 
+async function like(id, qlikes){
+    if (!done){
+        return false
+    }
+    try{
+        id = ObjectId(id)
+        let value = await global.conn.collection(login.collection_name).updateOne({_id: id},{ $inc: { likes: qlikes }});
+        return value.acknowledged
+    }catch{
+        console.log("Houve o seguinte erro durante a função \"like\":\n" + err)
+        return false
+    }
+}
+
 async function deleteStory(id){
     if (!done){
         return false
@@ -99,4 +113,4 @@ async function updateStory(id, json){
     }
 }
 
-module.exports = { selectTitles, loadHistory, getMyTitles, insertStory, deleteStory, updateStory }
+module.exports = { selectTitles, loadHistory, getMyTitles, insertStory, deleteStory, updateStory, like }

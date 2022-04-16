@@ -22,7 +22,6 @@ router.get("/home", (req, res)=>{
 
 router.get("/", async (req, res)=>{
     stories = await mongo.selectTitles()
-    
     let vars = {
         stories: stories, 
         'user': req.user ? req.user.username: null
@@ -37,10 +36,8 @@ router.get("/jogar_historia/:index/", async (req, res)=>{
         history_json = {}
     }
 
-    if(history_json._id !== undefined){
-        let likes = await pg.story_likes(history_json._id.toHexString(), req.user ? req.user.id : null)
-        history_json['likes'] = likes.likes
-        history_json['have_liked'] = likes.have_liked
+    if(req.user !== undefined){
+        history_json['have_liked'] = await pg.my_likes(history_json._id.toHexString(), req.user.id)
     }
 
     res.render('../views/pages/history', {"history_json": history_json, 'user': req.user ? req.user.username: null})
