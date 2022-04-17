@@ -38,32 +38,40 @@
 
     <div id="content">
         <p>As histórias que você escreveu até agora são: </p>
-        <div id="options">
+        <div id="row">
             <% if (stories.length == 0){ %>
                 <p>Nenhuma história até agora</p>
             <% } %>
-            <% stories.forEach(function(history){ %>
-                <div class="encapsulator">
-                    <a href="/jogar_historia/<%- history._id %>/" style="text-decoration: none; color: white;">
-                    <div class="option">
-                        <%- history.Titulo %>
+            <% stories.forEach(function(story){ %>
+                <div class="col-md-6">
+                    <div class="card" style="margin-bottom: 20px;">
+                        <div class="card-header">
+                            ❤️ <%- story.likes %>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="font-family:'Lucida Handwriting Italic';"><%- story.Titulo %></h5>
+                            <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
+                                "<%-`${story.Escolhas[0].História.slice(0, 200)}${story.Escolhas[0].História.length > 200 ? " ..." : "" }`%>"
+                            </p>
+        
+                            <a href="/jogar_historia/<%- story._id %>/" class="btn btn-primary">Jogar História</a>
+                        </div>
+                        <div class="card-footer">
+                            <span class="delete" id="<%- story._id %>">
+                                    Deletar
+                            </span>
+                            -
+                            <a href="/editar_historia/<%- story._id %>/">
+                                    Editar
+                            </a>
+                            <% if(!story.published){ %>
+                                    -  
+                                <span class="publish" id="<%- story._id %>">
+                                        Publicar
+                                </span>
+                            <% } %> 
+                        </div>
                     </div>
-                </a>
-                <span>
-                    <span class="delete" id="<%- history._id %>">
-                        Deletar
-                    </span>
-                    -
-                    <a href="/editar_historia/<%- history._id %>/">
-                        Editar
-                    </a>
-                    <% if(!history.published){ %>
-                        -  
-                        <span class="publish" id="<%- history._id %>">
-                            Publicar
-                        </span>
-                    <% } %> 
-                </span>
                 </div>
             <% }); %>
         </div>

@@ -34,7 +34,7 @@ async function getMyTitles(user_id){
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true, published: true, likes: true}}).toArray()
+        let values = await global.conn.collection(login.collection_name).find({owner: {$eq: user_id}}, {projection: {Titulo: true, published: true, likes: true, Escolhas: true}}).toArray()
         return values
     }catch(err){
         console.log("Houve o seguinte erro durante a função \"getMyTitles\":\n" + err)
