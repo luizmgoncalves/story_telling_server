@@ -9,24 +9,6 @@
     
     <link rel="stylesheet" type="text/css" href="/css/story.css">
     
-    <style>
-        .delete {
-            color: red;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .delete:hover{
-            text-decoration: underline;
-        }
-        .publish {
-            color: blue;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .publish:hover{
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
@@ -38,7 +20,7 @@
 
     <div id="content">
         <p>As histórias que você escreveu até agora são: </p>
-        <div id="row">
+        <div class="row">
             <% if (stories.length == 0){ %>
                 <p>Nenhuma história até agora</p>
             <% } %>
@@ -57,19 +39,17 @@
                             <a href="/jogar_historia/<%- story._id %>/" class="btn btn-primary">Jogar História</a>
                         </div>
                         <div class="card-footer">
-                            <span class="delete" id="<%- story._id %>">
-                                    Deletar
-                            </span>
-                            -
-                            <a href="/editar_historia/<%- story._id %>/">
-                                    Editar
-                            </a>
-                            <% if(!story.published){ %>
-                                    -  
-                                <span class="publish" id="<%- story._id %>">
-                                        Publicar
+                                <span class="delete btn btn-danger" id="<%- story._id %>">
+                                        Deletar
                                 </span>
-                            <% } %> 
+                                <a class="btn btn-primary" href="/editar_historia/<%- story._id %>/">
+                                        Editar
+                                </a>
+                                <% if(!story.published){ %>
+                                    <span class="publish btn btn-success" id="<%- story._id %>">
+                                            Publicar
+                                    </span>
+                                <% } %> 
                         </div>
                     </div>
                 </div>

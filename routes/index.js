@@ -82,15 +82,11 @@ router.post("/like", authenticationMiddleware, async (req, res)=>{
     res.json({'sucess': state})
 })
 
-router.post("/delete", authenticationMiddleware, async (req, res)=>{
-    let sucess = false
-    let secured = xss(JSON.stringify(req.body))
-    req.body = JSON.parse(secured)
-
-    if(req.body.id){
+router.get("/delete/:id/", authenticationMiddleware, async (req, res)=>{
+    if(req.params.id){
         let history_json = await mongo.loadHistory(req.body.id)
-        if (history_json && history_json.owner === req.user.id){
-            sucess = mongo.deleteStory(req.body.id)
+        if (!(Object.keys(history_json).length === 0) && history_json.owner === req.user.id){
+            sucess = mongo.deleteStory(req.params.id)
         }
     }
 
