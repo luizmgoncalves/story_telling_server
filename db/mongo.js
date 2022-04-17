@@ -19,7 +19,7 @@ async function selectTitles() {
         return []
     }
     try{
-        let values = await global.conn.collection(login.collection_name).find({published: true}, {projection: {Titulo: true, likes: true}}).sort({likes: -1}).limit(7).toArray()
+        let values = await global.conn.collection(login.collection_name).find({published: true}, {projection: {Titulo: true, likes: true, Escolhas: true}}).sort({likes: -1}).limit(7).toArray()
         return values
     }
     catch(err){

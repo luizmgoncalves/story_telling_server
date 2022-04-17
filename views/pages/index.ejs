@@ -20,15 +20,19 @@
         <p>As histórias que temos disponíveis no momento são: </p>
         <div id="options">
             <% stories.forEach(function(story){ %>
-                <div class="encapsulator">
-                <a href="/jogar_historia/<%- story._id %>/" style="text-decoration: none; color: white;">
-                    <div class="option">
-                        <%- story.Titulo %>
+                <div class="card" style="max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 20px;">
+                    <div class="card-header">
+                        ❤️ <%- story.likes %>
                     </div>
-                </a>
-                <span style="font-size: 14px"> ❤️ <%- story.likes %></span>
-                </div>
-                
+                    <div class="card-body text-center">
+                      <h5 class="card-title"><%- story.Titulo %></h5>
+                        <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
+                            "<%-`${story.Escolhas[0].História.slice(0, 200)} ${story.Escolhas[0].História.length > 200 ? " ..." : "" }`%>"
+                        </p>
+
+                      <a href="/jogar_historia/<%- story._id %>/" class="btn btn-primary">Jogar História</a>
+                    </div>
+                  </div>
             <% }); %>
         </div>
     </div>

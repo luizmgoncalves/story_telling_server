@@ -44,14 +44,6 @@ h1#history_title{
     max-width: 900px;
 }
 
-a{
-    color: blue;
-    text-decoration: none;
-}
-a:hover{
-    text-decoration:underline;
-}
-
 #like-button {
     display: inline-block;
     position: relative;
