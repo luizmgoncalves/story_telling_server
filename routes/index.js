@@ -66,6 +66,7 @@ router.post("/submit_story", authenticationMiddleware, (req, res)=>{
     sucess = false
     
     if (story_validator.validate(result)){
+        result.likes = 0
         if(mongo.insertStory(result)){
             sucess = true
         }
