@@ -24,6 +24,12 @@ function history_initialization(){
 }
 
 function load_history(){
+    if(current_choice!=0){
+        return_all_b.style.display = "block"
+    }
+    else{
+        return_all_b.style.display = "none"
+    }
     var content = document.getElementById("History")
     
     content.innerText = HtmlDecode(main_json.Escolhas.find(ob=>{return ob.id==current_choice}).História)

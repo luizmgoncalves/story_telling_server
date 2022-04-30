@@ -10,29 +10,25 @@
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
-    <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title"></h1>
-        </div>
-    </div>
 
+    <div class="container-fluid" style="max-width: 1000px;margin-top:40px;margin-bottom: -40px;">
+        <img id="return" src="/images/undo.png" alt=""  class="play_button">
+    </div>
     <div id="content">
-        <div class="container" style="font-size:20px; margin-left: 10px;margin-top: -20px;"> 
+        <div class="container" style="font-size:20px; margin-left: 10px;"> 
             <% if(!history_json.have_liked){ %>
                 <div id="like-button">🖤</div>
             <% }else{ %>
                 <div id="like-button" class="liked">❤️</div>
             <% } %>    
             &MediumSpace; <span id="likes"><%- history_json.likes %> </span>
+            <span id="history_title" style="float: right;font-family:'Lucida Handwriting Italic';"></span>
         </div>  
         <hr>
 
         <p id="History"></p>
         <p id="choice">O que você escolhe?</p>
         <div id="options"></div>
-        <div style="width:100%; text-align: center;">
-            <button class="btn btn-outline-primary" style="margin-top: 30px; font-size: 15px;" id="return">Voltar ao início</button>
-        </div>
     </div>
 
     <script src="/js/script.js"></script>
