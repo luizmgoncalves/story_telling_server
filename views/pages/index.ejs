@@ -25,14 +25,25 @@
                 <div class="card" style="margin-bottom: 20px;">
                     <div class="card-header">
                         ❤️ <%- story.likes %>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title" style="font-family:'Lucida Handwriting Italic';"><%- story.Titulo %></h5>
-                        <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
-                            "<%-`${story.Escolhas[0].História.slice(0, 200)}${story.Escolhas[0].História.length > 200 ? "..." : "" }`%>"
-                        </p>
 
-                        <a href="/jogar_historia/<%- story._id %>/" class="btn btn-primary">Jogar História</a>
+                        <h5 class="card-title" style="font-family:'Lucida Handwriting Italic'; display: inline-block; width: 70%;"><%- story.Titulo %> </h5>
+
+                        <button class="material-icons collapse_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%- story._id %>" aria-expanded="false" aria-controls="collapse<%- story._id %>">arrow_drop_down</button>
+
+                        <br>
+                        
+                        <span class="description">Feito por: <%- story.owner_name %></span>
+                        
+                    </div>
+                    <div class="collapse" id="collapse<%- story._id %>">
+                        <div class="card-body text-center">
+                            <a href=""></a>
+                            <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
+                                "<%-`${story.Escolhas[0].História.slice(0, 100)}${story.Escolhas[0].História.length > 100 ? "..." : "" }`%>"
+                            </p>
+
+                            <a href="/jogar_historia/<%- story._id %>/"><img src="/images/play.png" alt="Jogar História" class="play_button"></a>
+                        </div>
                     </div>
                 </div>
             </div>
