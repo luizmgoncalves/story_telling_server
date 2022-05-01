@@ -22,42 +22,45 @@
         </div>
     </div>
     <div id="content">
-        
-        <p style="color:red;"> <span style="text-decoration: underline; font-size: large;">Atenção: </span> <br> <br> &#8594; Esse site ainda está em fase de desenvolvimento e não guarda nenhuma informação sensível, <span style="font-weight: bold;">não use uma senha que você usa em outros sites por segurança.</span><br>Existe alguma chance de seus dados serem descartados numa futura atualização.</p>
-        <div class="input_atom container" style="max-width: 400px;">
-            <form action="/cadastro" method="POST">
-                <% if(!sucess) { %>
+        <div class="row">
+            <div class="col-sm-4">
+                <p style="color:red; text-align: justify;"> <span style="text-decoration: underline; font-size: large;">Atenção: </span> <br> <br> &#8594; Esse site ainda está em fase de desenvolvimento e não guarda nenhuma informação sensível, <span style="font-weight: bold;">não use uma senha que você usa em outros sites por segurança.</span><br>Existe alguma chance de seus dados serem descartados numa futura atualização.</p>
+            </div>
+            <div class="input_atom col-sm-6" style="max-width: 400px;">
+                <form action="/cadastro" method="POST">
+                    <% if(!sucess) { %>
+                        <div class="form-group form_item">
+                        <label for="username">Nome de usuário: </label>    
+                        <input name="username" type="text" class="form-control" placeholder="username"/>
+                    </div>
                     <div class="form-group form_item">
-                    <label for="username">Nome de usuário: </label>    
-                    <input name="username" type="text" class="form-control" placeholder="username"/>
-                </div>
-                <div class="form-group form_item">
-                    <label for="email">Email: </label>
-                    <input name="email" type="text" class="form-control" placeholder="email@exemplo.com"/>
-                </div>
-                <div class="form-group form_item">
-                    <label for="password">Senha: </label>
-                    <input name="password" type="password" class="form-control" placeholder="senha"/>
-                </div>
-                    
-                <input type="submit" value="Cadastrar" class="btn btn-primary form_item"/>
-                    
-                <%}%>
-                <% if(message_err.length > 0) { %>
-                <div class="form-group">
-                    <p class="description">
-                        <label style="color:Red"><%- message_err %></label>
-                    </p>
-                </div>
-                <%}%>
-                <% if(message) { %>
-                <div class="form-group">
-                    <p class="description">
-                        <label style="color:Green"><%= message %></label>
-                    </p>
-                </div>
-                <%}%>
-            </form>
+                        <label for="email">Email: </label>
+                        <input name="email" type="text" class="form-control" placeholder="email@exemplo.com"/>
+                    </div>
+                    <div class="form-group form_item">
+                        <label for="password">Senha: </label>
+                        <input name="password" type="password" class="form-control" placeholder="senha"/>
+                    </div>
+                        
+                    <input type="submit" value="Cadastrar" class="btn btn-outline-primary form_item"/>
+                        
+                    <%}%>
+                    <% if(message_err.length > 0) { %>
+                    <div class="form-group">
+                        <p class="description">
+                            <label style="color:Red"><%- message_err %></label>
+                        </p>
+                    </div>
+                    <%}%>
+                    <% if(message) { %>
+                    <div class="form-group">
+                        <p class="description">
+                            <label style="color:Green"><%= message %></label>
+                        </p>
+                    </div>
+                    <%}%>
+                </form>
+            </div>
         </div>
     </div>
   </body>
