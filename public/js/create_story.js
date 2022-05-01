@@ -1,5 +1,5 @@
-function show_options(choice_id){
-    let input_number = document.getElementById(`input_number_${choice_id}`)
+function show_options(){
+    let input_number = this
     if (input_number.value==''){
         input_number.value = 0
     }
@@ -100,6 +100,7 @@ function add_choice() {
 
 
     let input_number = document.getElementById(`input_number_${actual_id}`)
+    input_number.addEventListener('change', show_options)
     input_number.value = 0
 
     actual_id++
@@ -108,14 +109,16 @@ function add_choice() {
 
 function add_option(){
     let c_num = this.id.split("_")[2]
-    document.getElementById(`input_number_${c_num}`).value ++
-    show_options(c_num)
+    quant_options = document.getElementById(`input_number_${c_num}`)
+    quant_options.value ++
+    quant_options.dispatchEvent(new Event("change"))
 }
 
 function sub_option(){
     let c_num = this.id.split("_")[2]
-    document.getElementById(`input_number_${c_num}`).value --
-    show_options(c_num)
+    quant_options = document.getElementById(`input_number_${c_num}`)
+    quant_options.value --
+    quant_options.dispatchEvent(new Event("change"))
 }
 
 function generate_json(){
