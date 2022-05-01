@@ -1,15 +1,20 @@
-function show_options(){
-    if (this.value==''){
-        this.value = 0
+function show_options(choice_id){
+    let input_number = document.getElementById(`input_number_${choice_id}`)
+    if (input_number.value==''){
+        input_number.value = 0
     }
 
-    if(this.value > Number(this.max) || this.value < 0){
-        window.alert("Número inválido, digite um número entre 0 e 5.")
+    if(input_number.value > Number(input_number.max)){
+        input_number.value = 5
+        return 
+    }
+    if (input_number.value < 0){
+        input_number.value = 0
         return 
     }
 
     let i=0
-    let c_num = this.id.split("_")[2]
+    let c_num = input_number.id.split("_")[2]
 
     let option = document.getElementById(c_num+"_option_"+i.toString())
     while (option !== null){
@@ -17,10 +22,10 @@ function show_options(){
         option = document.getElementById(c_num + "_option_"+i.toString())
     }
 
-    let table = document.getElementById("choice_table_" + c_num)
+    let table = document.getElementById("option_list_" + c_num)
 
-    if(this.value > i){
-        for (;i<this.value;i++){
+    if(input_number.value > i){
+        for (;i<input_number.value;i++){
             let el = document.createElement('div')
             el.className = 'mb-3 form_item'
             let el2 = document.createElement('div')
@@ -40,7 +45,7 @@ function show_options(){
             table.appendChild(el2)
         }
     }else{
-        for (;i>this.value;i--){
+        for (;i>input_number.value;i--){
             option = document.getElementById(c_num+"_option_"+(i-1).toString())
             link = document.getElementById(c_num + "_option_link_"+(i-1).toString())
             option.remove()
@@ -70,24 +75,47 @@ function add_choice() {
                 <label>História: </label>
                 <textarea id="history_${actual_id}" cols="30" rows="5" style="width:100%;"></textarea>
             </div>
-            
-            <div class="mb-3">
-                <label>Quantidade de opções: </label>
-                <input type="number" class="input_number" id="input_number_${actual_id}"  min="0" max="5">
+
+            <div class="mb-3" id="option_list_${actual_id}">
             </div>
             
+            <div class="mb-3" style="text-align:right;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-outline-dark" id="add_button_${actual_id}" style="height:37px;width:37px;">+</button><button class="btn btn-outline-dark" id="sub_button_${actual_id}" style="height:37px;width:37px;">-</button>
+                </div>
+            </div>
+            <input type="number" class="input_number" id="input_number_${actual_id}"  min="0" max="5" hidden="true">
         </div>
     `
 
     parent = document.getElementById('choices')
     parent.appendChild(new_choice)
 
+    let add_option_b = document.getElementById(`add_button_${actual_id}`)
+    let sub_option_b = document.getElementById(`sub_button_${actual_id}`)
+
+    add_option_b.addEventListener('click', add_option)
+
+    sub_option_b.addEventListener('click', sub_option)
+
+
     let input_number = document.getElementById(`input_number_${actual_id}`)
-    input_number.addEventListener('change', show_options)
     input_number.value = 0
 
     actual_id++
 
+}
+
+function add_option(){
+    let c_num = this.id.split("_")[2]
+    document.getElementById(`input_number_${c_num}`).value ++
+    show_options(c_num)
+}
+
+function sub_option(){
+    let c_num = this.id.split("_")[2]
+    document.getElementById(`input_number_${c_num}`).value --
+    show_options(c_num)
 }
 
 function generate_json(){

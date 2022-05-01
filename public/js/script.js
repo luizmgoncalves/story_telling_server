@@ -25,7 +25,7 @@ function history_initialization(){
 
 function load_history(){
     if(current_choice!=0){
-        return_all_b.style.display = "block"
+        return_all_b.style.display = "inline"
     }
     else{
         return_all_b.style.display = "none"
