@@ -52,6 +52,21 @@ router.get("/jogar_historia", (req, res)=>{
     res.render("../views/pages/json_instant_decoder", {'user': req.user ? req.user.username: null})
 })
 
+router.get("/profile/:user_id/", async (req, res)=>{
+    let user = await pg.find_user_by_id(req.params.user_id)
+    if(user === null){
+        res.send('error')
+    }
+    else{
+        res.render("../views/pages/profile", 
+                {
+                    'user': req.user ? req.user.username: null, 
+                    profile_user: user,
+                    stories: await mongo.getTitlesByOwner(Number.parseInt(req.params.user_id))
+                })
+    }
+})
+
 router.get("/submit_story", authenticationMiddleware, (req, res)=>{
     res.render('../views/pages/submit_story', {'user': req.user ? req.user.username: null})
 })
