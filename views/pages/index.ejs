@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Principais Histórias</title>
     <%- include('../partials/head') %> 
 </head>
+
 <body>
     <%- include('../partials/header', {user: user}); %>
     <div id="content">
@@ -18,33 +20,40 @@
 
        <br>
 
-        <div class="row">
-        <% stories.forEach(function(story){ %>
-            <div class="col-md-6">
-                <div class="card" style="margin-bottom: 20px;">
-                    <div class="card-header">
-                        ❤️ <%- story.likes %>
+            <div class="row">
+                <% stories.forEach(function(story){ %>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 20px;">
+                            <div class="card-header">
+                                ❤️
+                                <%- story.likes %>
 
-                        <h5 class="card-title" style="font-family:'Lucida Handwriting Italic'; display: inline-block; width: 70%;"><a href="/jogar_historia/<%- story._id %>/" style="text-decoration:none; color:black;"><%- story.Titulo %> </a></h5>
+                                    <h5 class="card-title" style="font-family:'Lucida Handwriting Italic'; display: inline-block; width: 70%;">
+                                        <a href="/jogar_historia/<%- story._id %>/" style="text-decoration:none; color:black;">
+                                            <%- story.Titulo %>
+                                        </a>
+                                    </h5>
 
-                        <button class="material-icons collapse_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%- story._id %>" aria-expanded="false" aria-controls="collapse<%- story._id %>">arrow_drop_down</button>
+                                    <button class="material-icons collapse_button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%- story._id %>" aria-expanded="false" aria-controls="collapse<%- story._id %>">arrow_drop_down</button>
 
-                        <br>
-                        <span class="description">Feito por: <a href="profile/<%- story.owner %> "><%- story.owner_name %></a></span>
-                        
-                    </div>
-                    <div class="collapse" id="collapse<%- story._id %>">
-                        <div class="card-body text-center">
-                            <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
-                                "<%-`${story.Escolhas[0].História.slice(0, 100)}${story.Escolhas[0].História.length > 100 ? "..." : "" }`%>"
-                            </p>
+                                    <br>
+                                    <span class="description">Feito por: <a href="profile/<%- story.owner %> "><%- story.owner_name %></a></span>
 
+                            </div>
+                            <div class="collapse" id="collapse<%- story._id %>">
+                                <div class="card-body text-center">
+                                    <p class="card-text text-break" style="text-indent:0px; text-align: justify;">
+                                        "
+                                        <%-`${story.Escolhas[0].História.slice(0, 100)}${story.Escolhas[0].História.length > 100 ? "..." : "" }`%>"
+                                    </p>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <% }); %>
             </div>
-        <% }); %>
         </div>
-    </div>
 </body>
+
 </html>
