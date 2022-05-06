@@ -88,4 +88,5 @@ span.description{
 .btn{
     border-radius: 25px;
     border-style: solid;
+    width: fit-content;
 }
