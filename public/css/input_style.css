@@ -1,3 +1,8 @@
+h5{
+    color:rgb(110, 2, 2);
+    font-family:'Lucida Handwriting Italic';
+}
+
 
 div.input_atom{
     padding: 5px 20px 10px 20px;
@@ -39,9 +44,4 @@ input{
 
 .form_item{
     margin-top: 10px;
-}
-
-
-.btn{
-    width: fit-content;
 }

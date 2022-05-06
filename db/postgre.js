@@ -59,7 +59,33 @@ async function criar_novo_cadastro(username, email, senha){
     
     
 }
+/* 
+async function redefine_pass_sol(email, senha){
+    try{
+        let pool = await connect()
+        let validade = moment().add(1, 'h').format()
 
+        let sql = `select * from users_sch.users_tb where email = $1`
+        let values = [email];
+        let result = await pool.query(sql, values)
+
+        if(!result.rows[0]){
+            return {id: null, email: null}
+        }
+
+        sql = "INSERT INTO cadastro.redefine(email, senha, validade) VALUES ($1,$2,$3) returning id, email;"
+
+        values = [email, bcrypt.hashSync(senha), validade];
+        result = await pool.query(sql, values)
+
+        return result.rows[0]
+
+    } catch(err){
+        console.log("Houve o seguinte erro durante a função \"criar_novo_cadastro\":\n" + err)
+        return {id: null, email: null}
+    }
+}
+*/
 async function cadastrar_efetivo(id){
     try{
         let pool = await connect()

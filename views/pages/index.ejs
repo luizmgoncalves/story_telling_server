@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principais Histórias</title>
     <%- include('../partials/head') %> 
-    <link rel="stylesheet" type="text/css" href="/css/story.css">
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
-    <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title">Dê uma olhada nas nossas histórias</h1>
-        </div>
-    </div>
-
     <div id="content">
-        <p>As histórias que temos disponíveis no momento são: </p>
+        <% if (user){ %> 
+            <h3 style="font-family: 'Pompiere', cursive;">Seja bem-vindo(a), <%- user %>!</h3>
+            <hr>
+        <% } %> 
+       <h5 style="font-family: 'Pompiere', cursive; text-align:center;">Nossas histórias: </h5>
+
+       <br>
 
         <div class="row">
         <% stories.forEach(function(story){ %>
