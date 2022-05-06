@@ -48,6 +48,10 @@ router.get("/criar_historia", (req, res)=>{
     res.render("../views/pages/json_creator", {'user': req.user ? req.user.username: null})
 })
 
+router.get("/tutorial", (req, res)=>{
+    res.render("../views/pages/tutorial", {'user': req.user ? req.user.username: null})
+})
+
 router.get("/jogar_historia", (req, res)=>{
     res.render("../views/pages/json_instant_decoder", {'user': req.user ? req.user.username: null})
 })
