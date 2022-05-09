@@ -1,42 +1,24 @@
-/***********CAIXAS************/
-
-div.input_atom {
-    max-width: 900px;
-    padding: 4rem;
-    box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.10);
-    border-radius: 50px;
-    background: #eee;
-    text-align: center;
-    margin: 2rem auto 2rem;
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-
-/****************************/
-
-
-/***********BOTÕES INFERIORES************/
-
-#add_choice_div {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-
-/**************************************/
-
-
-/***********TITULO************/
-
 h5 {
     color: rgb(110, 2, 2);
     font-family: 'Lucida Handwriting Italic';
 }
 
-
-/***************************/
+div.input_atom {
+    padding: 5px 20px 10px 20px;
+    border-radius: 3px;
+    background-color: rgb(218, 218, 218);
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 600px;
+}
 
 .input_number {
     width: 40px;
@@ -48,11 +30,15 @@ h5 {
 }
 
 input {
-    width: 50px;
-    height: 20px;
-    background-color: #f2f2f2;
-    padding: 3px;
-    border: 1px solid #ccc;
-    color: #333;
-    border-radius: 50px;
+    width: 100%;
+}
+
+#add_choice_div {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.form_item {
+    margin-top: 10px;
 }
