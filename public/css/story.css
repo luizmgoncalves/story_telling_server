@@ -111,13 +111,13 @@ hr {
 /**ESTRELAS**/
 
 #estrelas {
-    height: 93%;
+    height: 100%;
     width: 100%;
     position: fixed;
-    margin-top: 7%;
     top: 0;
     left: 0;
     opacity: 0;
+    pointer-events: none
 }
 
 
