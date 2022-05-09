@@ -1,58 +1,58 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin:-10px;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/favicon.ico" alt="">StoryTelling</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="/favicon.ico" alt="">StoryTelling</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">Home</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="/">Principais Histórias</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="Local" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">Principais Histórias</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="Local" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Localmente
           </a>
-          <ul class="dropdown-menu" aria-labelledby="Local">
-            <li><a class="dropdown-item" href="/criar_historia">Criar História</a></li>
-            <li><a class="dropdown-item" href="/jogar_historia">Jogar história</a></li>
-          </ul>
-        </li>
-        <% if (user){ %>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="Owner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="dropdown-menu" aria-labelledby="Local">
+                        <li><a class="dropdown-item" href="/criar_historia">Criar História</a></li>
+                        <li><a class="dropdown-item" href="/jogar_historia">Jogar história</a></li>
+                    </ul>
+                </li>
+                <% if (user){ %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Owner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Minhas histórias
           </a>
-          <ul class="dropdown-menu" aria-labelledby="Owner">
-            <li><a class="dropdown-item" href="/submit_story">Criar minha história</a></li>
-            <li><a class="dropdown-item" href="/minhas_historias">Minhas histórias</a></li>
-          </ul>
-        </li>
-        <% } %>
-      </ul>
-      <div class="d-flex">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <% if (user){ %>
-          <li class="navbar-text">
-            <span>Olá <%- user %>, tenha um bom dia!</span>
-          </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login/logout"><button type="button" class="btn btn-secondary btn-sm">Logout</button></a>
-              
-            </li>
-        <% } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cadastro">Cadastro</a>
-          </li>
-        <% } %>
-        </ul>
-      </form>
-    </div>
-  </div>
+                        <ul class="dropdown-menu" aria-labelledby="Owner">
+                            <li><a class="dropdown-item" href="/submit_story">Criar minha história</a></li>
+                            <li><a class="dropdown-item" href="/minhas_historias">Minhas histórias</a></li>
+                        </ul>
+                    </li>
+                    <% } %>
+            </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <% if (user){ %>
+                        <li class="navbar-text">
+                            <span>Olá <%- user %>, tenha um bom dia!</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/logout"><button type="button" class="btn btn-secondary btn-sm">Logout</button></a>
+
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cadastro">Cadastro</a>
+                            </li>
+                            <% } %>
+                </ul>
+                </form>
+            </div>
+        </div>
 </nav>

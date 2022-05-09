@@ -1,57 +1,247 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Telling</title>
-    <%- include('../partials/head') %> 
-    <link rel="stylesheet" href="/css/story.css">
+    <%- include('../partials/head') %>
+        <link rel="stylesheet" href="/css/story.css">
+        <script>
+            var Space = {
+                init: function() {
+                    var self = this;
+                    this.config = {
+                        perspective: 3,
+                        star_color: '255, 255, 255',
+                        speed: 1,
+                        stars_count: 2
+                    };
+                    this.estrelas = document.getElementById('estrelas');
+                    this.context = estrelas.getContext('2d');
+                    this.start();
+                    window.onresize = function() {
+                        self.start();
+                    };
+                },
+
+                start: function() {
+                    var self = this;
+
+                    this.estrelas.width = this.estrelas.offsetWidth;
+                    this.estrelas.height = this.estrelas.offsetHeight;
+                    this.estrelas_center_x = this.estrelas.width / 2;
+                    this.estrelas_center_y = this.estrelas.height / 2;
+
+                    this.stars_count = this.estrelas.width / this.config.stars_count;
+                    this.focal_length = this.estrelas.width / this.config.perspective;
+                    this.speed = this.config.speed * this.estrelas.width / 2000;
+
+                    this.stars = [];
+
+                    for (i = 0; i < this.stars_count; i++) {
+                        this.stars.push({
+                            x: Math.random() * this.estrelas.width,
+                            y: Math.random() * this.estrelas.height,
+                            z: Math.random() * this.estrelas.width,
+                        });
+                    }
+
+                    window.cancelAnimationFrame(this.animation_frame);
+                    this.estrelas.style.opacity = 1;
+
+                    this.cow = new Image();
+                    this.cow.src = 'https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Fast-Food-PNG-Clipart/Hamburger_PNG_Vector_Picture.png?m=1507172108';
+                    this.cow.onload = function() {
+                        self.render();
+                    }
+                },
+
+                render: function() {
+                    var self = this;
+                    this.animation_frame = window.requestAnimationFrame(function() {
+                        self.render();
+                    });
+                    this.context.clearRect(0, 0, this.estrelas.width, this.estrelas.height);
+                    for (var i = 0, length = this.stars.length; i < length; i += 1) {
+                        var star = this.stars[i];
+                        star.z -= this.speed;
+                        if (star.z <= 0) {
+                            this.stars[i] = {
+                                x: Math.random() * this.estrelas.width,
+                                y: Math.random() * this.estrelas.height,
+                                z: this.estrelas.width,
+                            };
+                        }
+
+                        var star_x = (star.x - this.estrelas_center_x) * (this.focal_length / star.z) + this.estrelas_center_x;
+                        var star_y = (star.y - this.estrelas_center_y) * (this.focal_length / star.z) + this.estrelas_center_y;
+                        var star_radius = Math.max(0, 1.4 * (this.focal_length / star.z) / 2);
+                        var star_opacity = 1.2 - star.z / this.estrelas.width;
+                        var cow_width = Math.max(0.1, 100 * (this.focal_length / star.z) / 2);
+
+                        if (star.cow) {
+                            this.context.save();
+                            this.context.translate((star_x - cow_width) + (cow_width / 2), (star_y - cow_width) + (cow_width / 2));
+                            this.context.rotate(star.z / star.rotation_speed);
+                            this.context.translate(-((star_x - cow_width) + (cow_width / 2)), -((star_y - cow_width) + (cow_width / 2)));
+                            this.context.globalAlpha = star_opacity;
+                            this.context.drawImage(this.cow, 0, 0, this.cow.width, this.cow.width, star_x - cow_width, star_y - cow_width, cow_width, cow_width);
+                            this.context.restore();
+                        } else {
+                            this.context.fillStyle = 'rgba(' + this.config.star_color + ',' + star_opacity + ')';
+                            this.context.beginPath();
+                            this.context.arc(star_x, star_y, star_radius, 0, Math.PI * 2);
+                            this.context.fill();
+                        }
+                    }
+                }
+            };
+
+            window.onload = function() {
+                Space.init();
+            };
+        </script>
 </head>
+
 <body>
-    <%- include('../partials/header', {user: user}); %>
-    <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title">Home</h1>
+
+    <a class="back-to-top" href="#">▲</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-inverse" style="margin:-10px;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="/favicon.ico" alt="">StoryTelling</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/">Principais Histórias</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="Local" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Localmente
+              </a>
+                        <ul class="dropdown-menu" aria-labelledby="Local">
+                            <li><a class="dropdown-item" href="/criar_historia">Criar História</a></li>
+                            <li><a class="dropdown-item" href="/jogar_historia">Jogar história</a></li>
+                        </ul>
+                    </li>
+                    <% if (user){ %>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="Owner" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Minhas histórias
+              </a>
+                            <ul class="dropdown-menu" aria-labelledby="Owner">
+                                <li><a class="dropdown-item" href="/submit_story">Criar minha história</a></li>
+                                <li><a class="dropdown-item" href="/minhas_historias">Minhas histórias</a></li>
+                            </ul>
+                        </li>
+                        <% } %>
+                </ul>
+                <div class="d-flex">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <% if (user){ %>
+                            <li class="navbar-text">
+                                <span>Olá <%- user %>, tenha um bom dia!</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login/logout"><button type="button" class="btn btn-secondary btn-sm">Logout</button></a>
+
+                            </li>
+                            <% } else { %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cadastro">Cadastro</a>
+                                </li>
+                                <% } %>
+                    </ul>
+                    </form>
+                </div>
+            </div>
+    </nav>
+    <canvas id="estrelas"></canvas>
+    <div class="titulo">
+        Story Telling
+        <h3 class="subtitulo">
+            Deixe sua imaginação voar!
+            <hr id="pcl">
+        </h3>
+    </div>
+    <div id="content">
+
+        <h1>O que o Story-Telling pode fazer por você?</h1>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+            Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+            Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+            adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis aute iure reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <br>
+            <br> Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+            consequatur. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+            commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
+            sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute
+            iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis aute iure reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+        </p>
+        <br>
+        <br>
+        <h1>Como Utilizar?</h1>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+            Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.
+            Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+            adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis aute iure reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <br>
+            <br> Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+            consequatur. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+            commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
+            sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute
+            iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis aute iure reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+        </p>
+        <br>
+        <br>
+        <h1>Sobre os criadores</h1>
+        <hr>
+
+
+    </div>
+    <div class="criadores">
+        <div class="ana" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+
+            </p>
+        </div>
+        <div class="cris" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+
+            </p>
+        </div>
+        <div class="luiz" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+            </p>
         </div>
     </div>
-
-    <div id="content">
-        <p>
-            Seja muito bem vindo à plataforma StoryTelling, uma plataforma onde você pode deixar sua criatividade voar e pode compartilhar e também ler as mais fantásticas 🐉⚔️🏰🧙🏻‍♂️, mais assustadoras 😱👻🧟, mais emocionantes 🥺🌹😭, mais românticas 🌼💌💕, mais misteriosas 🕵🏽🔮 e engraçadas 😆😂🤣 histórias possíveis.
-        </p>
-        <br>
-        <h3>Não uma história comum</h3>
-        <br>
-        <p>
-            A plataforma StoryTelling não somente guarda histórias comuns, as histórias tem <span style="font-weight: bold;">ESCOLHAS</span> 🤯🤯🤯, quando estiver escrevendo ou lendo uma história poderá fazer escolhas e mudar totalmente o rumo da história. Não queremos limitar sua criatividade, você pode criar histórias lineares, ou com escolhas que mudam completamente a história, ou com escolhas que mudam pequenas situações, entre outras coisas... você decide!
-        </p>
-        
-        <p>
-            Você pode naturalmente buscar pelas nossas principais histórias na página "<a href="/">Principais Histórias</a>" e explorar todas as diversas possibilidades de escolhas e ramificações que cada histórias pode ter.
-        </p>
-
-        <img src="/images/choice_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
-
-        <br><br>
-            
-        <p>
-             Agora, se você também tem o anseio de <span style="font-weight: bold;">criar histórias</span>, você pode se <a href="/cadastro">cadastrar</a> e então ter histórias vinculadas ao seu usuário!
-        </p>
-        <p>
-             As histórias são separadas em núcleos, as escolhas. Cada escolha tem um único ID, um texto, e suas opções. Cada opção tem o seu texto e um link para outra escolha, esse link deve conter o ID da escolha à qual ela leva, se esse ID for um valor inválido a escolha não levará a lugar algum.
-            <br>
-             Veja um simples exemplo abaixo:
-        </p>
-
-        <img src="/images/json_creator_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
-
-        <br><br>
-
-        <p>
-            Se não quiser se cadastrar, você pode também <a href="/criar_historia">criar histórias localmente</a> (no seu computador, sem subir para a internet), para jogá-las você deve copiar o código gerado pela página e colar na página <a href="/jogar_historia">Jogar História</a>.
-       </p>
-
-    </div>
 </body>
+
 </html>
