@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Telling</title>
     <%- include('../partials/head') %>
-        <link rel="stylesheet" href="/css/story.css">
+        <link rel="stylesheet" href="/css/home.css">
         <script>
             var Space = {
                 init: function() {
@@ -15,8 +15,8 @@
                     this.config = {
                         perspective: 3,
                         star_color: '255, 255, 255',
-                        speed: 1,
-                        stars_count: 2
+                        speed: 10,
+                        stars_count: 10
                     };
                     this.estrelas = document.getElementById('estrelas');
                     this.context = estrelas.getContext('2d');
