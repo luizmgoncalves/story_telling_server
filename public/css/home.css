@@ -53,6 +53,17 @@ hr {
     max-width: 15%;
 }
 
+#tutorial {
+    margin: 2rem;
+}
+
+#content img {
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 /****/
 
@@ -60,6 +71,7 @@ hr {
 /**SOBRE OS AUTORES**/
 
 .criadores {
+    flex-wrap: wrap;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -76,7 +88,7 @@ hr {
     border-color: white;
     border-width: 1px;
     text-align: center;
-    max-width: 450px;
+    max-width: 400px;
 }
 
 #img-perfil {
@@ -122,3 +134,30 @@ hr {
 
 
 /****/
+
+
+/**SITE RESPONSIVO**/
+
+@media (max-width: 600px) {
+    body {
+        background-attachment: initial;
+        background-size: contain;
+    }
+    .criadores {
+        gap: 1rem;
+        padding: 0 4rem;
+        margin-top: 2rem;
+    }
+    #perfil {
+        padding: 1rem;
+        border-radius: 30px;
+        max-width: 450px;
+    }
+    #content p {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    #content {
+        margin-top: 1rem;
+    }
+}
