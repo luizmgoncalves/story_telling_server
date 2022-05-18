@@ -32,6 +32,70 @@ async function connect() {
     return pool.connect();
 }
 
+/* --- solicita redefinição de senha --- */
+async function redefine_pass(email, senha){
+    try{
+        let pool = await connect()
+        let validade = moment().add(1, 'h').format()
+
+        let sql = `select * from users_sch.users_tb where email = $1`
+        let values = [email];
+        let result = await pool.query(sql, values)
+
+        if(!result.rows[0]){
+            return {id: null, email: null}
+        }
+
+        sql = "INSERT INTO cadastro.redefine(email, senha, validade) VALUES ($1,$2,$3) returning id, email;"
+
+        values = [email, bcrypt.hashSync(senha), validade];
+        result = await pool.query(sql, values)
+
+        return result.rows[0]
+
+    } catch(err){
+        console.log("Houve o seguinte erro durante a função \"criar_novo_cadastro\":\n" + err)
+        return {id: null, email: null}
+    }
+}
+
+
+/* --- redefini senha de fato --- */
+async function redefine_pass_efetivo(id){
+    try{
+        let pool = await connect()
+        let sql = 'SELECT * FROM cadastro.redefine WHERE id=$1'
+        let values = [id]
+        let result = await pool.query(sql, values)
+        result = result.rows[0]
+
+        if(!result){
+            return false
+        }
+
+        result.validade = moment(result.validade)
+
+        if(moment().isAfter(result.validade) || result.feito == true){
+            return false
+        }
+
+        await pool.query('UPDATE cadastro.redefine SET feito = true WHERE email = $1;', [result.email])
+
+        sql = "UPDATE users_sch.users_tb SET password = $1 WHERE email = $2;"
+
+        values = [result.senha, result.email]
+
+        await pool.query(sql, values)
+
+        return true
+
+    }catch(err){
+        console.log("Houve o seguinte erro durante a função \"cadastrar_efetivo\":\n" + err)
+        return false
+    }
+}
+
+/* --- cria nova solicitação de cadastro --- */
 async function criar_novo_cadastro(username, email, senha){
     try{
         let pool = await connect()
@@ -59,33 +123,8 @@ async function criar_novo_cadastro(username, email, senha){
     
     
 }
-/* 
-async function redefine_pass_sol(email, senha){
-    try{
-        let pool = await connect()
-        let validade = moment().add(1, 'h').format()
 
-        let sql = `select * from users_sch.users_tb where email = $1`
-        let values = [email];
-        let result = await pool.query(sql, values)
-
-        if(!result.rows[0]){
-            return {id: null, email: null}
-        }
-
-        sql = "INSERT INTO cadastro.redefine(email, senha, validade) VALUES ($1,$2,$3) returning id, email;"
-
-        values = [email, bcrypt.hashSync(senha), validade];
-        result = await pool.query(sql, values)
-
-        return result.rows[0]
-
-    } catch(err){
-        console.log("Houve o seguinte erro durante a função \"criar_novo_cadastro\":\n" + err)
-        return {id: null, email: null}
-    }
-}
-*/
+/* --- cadastra efetivamente --- */
 async function cadastrar_efetivo(id){
     try{
         let pool = await connect()
@@ -154,6 +193,7 @@ async function find_user_by_email(email){
     }
 }
 
+/* retorna true se o usuário deu like em uma história, false caso contrário */
 async function my_likes(story_id, user_id){
     if (Object.keys(await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
         return false
@@ -172,6 +212,14 @@ async function my_likes(story_id, user_id){
     }
 }
 
+/* 
+efetiva um like dado por um usuário
+
+    um like é primeiro registrado numa tabela no banco de dados relacional preenchendo uma tabela "muitos para muitos", conectando um usuário à uma história -> cria um [(usuário), (história)]
+
+    posteriormente é contantabilizado num atributo da história no mongo-db -> história.likes ++
+
+*/
 async function like(story_id, user_id, unlike=false){
     if (Object.keys( await mongo.loadHistory(story_id)).length === 0){ //Check if story actually exists
         return false
@@ -228,4 +276,4 @@ async function clean_database(){
     }
 }
 
-module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin, my_likes, like}
+module.exports = {criar_novo_cadastro, cadastrar_efetivo, find_user_by_id, find_user_by_email, is_admin, my_likes, like, redefine_pass, redefine_pass_efetivo}
