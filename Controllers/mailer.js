@@ -41,7 +41,10 @@ function isEmailValid(email) {
 const edata = data()
 
 const transporter = nodemailer.createTransport({
+    host: edata.host,
+    port: edata.port,
     service: edata.service,
+    secure: edata.secure,
     auth: {
         user: edata.user,
         pass: edata.pass
