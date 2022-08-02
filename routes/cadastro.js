@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
         let res = await postgre.criar_novo_cadastro(req.body.username, req.body.email, req.body.password)
         if (res.id){
             let mailOptions = {
-                from: 'Story Telling',
+                from: 'story-trees@80ff.com.br',
                 to: `${req.body["email"]}`,
                 subject: 'Confirmação', 
                 html: `Olá ${req.body['username']}. Clique nesse link para confirmar seu cadastro na plataforma storytelling
@@ -106,7 +106,7 @@ router.post('/forget', async (req, res) => {
         let res = await postgre.redefine_pass(req.body.email, req.body.password)
         if (res.id){
             let mailOptions = {
-                from: 'Story Telling',
+                from: 'story-trees@80ff.com.br',
                 to: `${req.body.email}`,
                 subject: 'Confirmação', 
                 html: `Olá ${user.username}. Clique nesse link para confirmar seu cadastro na plataforma storytelling

@@ -6,9 +6,10 @@ function data(){
         return email_login
     }catch(err){
         return {
-            service: process.env.MAILER_SERVICE,
+            host: process.env.MAILER_SERVICE,
             user: process.env.MAILER_USER,
-            pass: process.env.MAILER_PASSWORD
+            pass: process.env.MAILER_PASSWORD,
+            port: 587
         }
     }
 }
@@ -43,8 +44,6 @@ const edata = data()
 const transporter = nodemailer.createTransport({
     host: edata.host,
     port: edata.port,
-    service: edata.service,
-    secure: edata.secure,
     auth: {
         user: edata.user,
         pass: edata.pass
