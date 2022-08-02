@@ -164,7 +164,7 @@ router.post("/publicar", authenticationMiddleware, async(req, res)=>{
         let history_json = await mongo.loadHistory(req.body.id)
         if (history_json && history_json.owner === req.user.id){
             let mailOptions = {
-                from: 'Story Telling',
+                from: 'story-trees@80ff.com.br',
                 to: 'lm4academy@gmail.com',
                 subject: 'Solicitação de publicar', 
                 html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}, acesse em <a href='http://${req.get('Host')}/admin/editar_historia/${req.body.id}/'>consultar</a>   .
