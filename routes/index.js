@@ -167,7 +167,7 @@ router.post("/publicar", authenticationMiddleware, async(req, res)=>{
                 from: 'story-trees@80ff.com.br',
                 to: 'lm4academy@gmail.com',
                 subject: 'Solicitação de publicar', 
-                html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}, acesse em <a href='http://${req.get('Host')}/admin/editar_historia/${req.body.id}/'>consultar</a>   .
+                html: `Olá, o usuário ${req.user.username} está solicitando a publicação da história "${history_json.Titulo}", cujo id é ${req.body.id}, acesse em <a href='story-trees.80ff.com.br/admin/editar_historia/${req.body.id}/'>consultar</a>   .
                 `
             };
 

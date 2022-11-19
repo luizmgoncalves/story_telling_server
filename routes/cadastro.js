@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
                 to: `${req.body["email"]}`,
                 subject: 'Confirmação', 
                 html: `Olá ${req.body['username']}. Clique nesse link para confirmar seu cadastro na plataforma storytelling
-                <a href='http://${req.get('Host')}${req.originalUrl}/confirmar?conid=${res.id}'>confirmar</a>
+                <a href='http://story-trees.80ff.com.br${req.originalUrl}/confirmar?conid=${res.id}'>confirmar</a>
                 `
             };
             
@@ -110,7 +110,7 @@ router.post('/forget', async (req, res) => {
                 to: `${req.body.email}`,
                 subject: 'Confirmação', 
                 html: `Olá ${user.username}. Clique nesse link para confirmar seu cadastro na plataforma storytelling
-                <a href='http://${req.get('Host')}/cadastro/confirmar-f?conid=${res.id}'>confirmar</a>
+                <a href='http://story-trees.80ff.com.br/cadastro/confirmar-f?conid=${res.id}'>confirmar</a>
                 `
             };
             
