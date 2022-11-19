@@ -27,8 +27,11 @@ router.post('/', unAuthenticationMiddleware,
 
 
 router.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/login');
+    req.logout(function(err) {
+       if (err) { return next(err); }
+       res.redirect('/login');
+    });
+
 });
 
 
