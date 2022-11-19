@@ -8,8 +8,7 @@ h5{
 div.input_atom{
     padding: 5px 20px 10px 20px;
     border-radius: 3px;
-    background-image: linear-gradient(rgb(94, 213, 218), #322266);
-    opacity: 0.95;
+    background-image: linear-gradient(rgba(38, 120, 120, 160), rgba(51, 35, 104, 160));
     
     border-color: black;
     border-style: solid;
