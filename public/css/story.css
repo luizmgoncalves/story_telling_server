@@ -1,17 +1,17 @@
-p{
+p {
     text-indent: 40px;
     font-size: 20px;
 }
 
-div.encapsulator{
+div.encapsulator {
     width: fit-content;
 }
 
-div.encapsulator div.option{
+div.encapsulator div.option {
     display: inline-block;
 }
 
-div.option{
+div.option {
     padding: 5px 20px 5px 20px;
     margin-top: 20px;
     border-radius: 10px;
@@ -27,6 +27,33 @@ div.option{
     text-indent: 0px;
 }
 
-div.option:hover{
+div.option:hover {
     padding: 10px 40px 10px 40px;
+}
+
+#like-button {
+    display: inline-block;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    transform: rotate(0deg);
+    transition: transform 0.6s;
+}
+
+#like-button.liked {
+    color: red;
+    transform: rotate(360deg) scale(1.5);
+}
+
+.play_button {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: transform 0.3s;
+    transform: scale(0.9);
+}
+
+.play_button:hover {
+    transform: scale(1.3);
 }

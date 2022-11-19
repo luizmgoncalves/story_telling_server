@@ -7,19 +7,16 @@
     <title>Login</title>
     <%- include('../partials/head') %> 
     <link rel="stylesheet" type="text/css" href="/css/input_style.css">
-    
+    <style>
+        span.description{
+            font-size: 14px;
+        }
+    </style>
     </head>
   <body>
     <%- include('../partials/header', {user: null}); %>
     <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title">Login</h1>
-        </div>
-        <style>
-            span.description{
-                font-size: 14px;
-            }
-        </style>
+        <h1 id="main_title">Login</h1>
     </div>
     <div id="content">
         <div class="input_atom container" style="max-width: 400px;">

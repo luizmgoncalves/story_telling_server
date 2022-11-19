@@ -12,9 +12,7 @@
 <body>
     <%- include('../partials/header', {user: user}); %>
     <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title"></h1>
-        </div>
+        <h1 id="main_title"></h1>
     </div>
 
     <div id="content">
@@ -39,7 +37,7 @@
             history_initialization()
             load_history()
         } catch{
-            document.getElementById('history_title').innerText = "erro ao carregar história"
+            document.getElementById('main_title').innerText = "erro ao carregar história"
         }
     
     </script>

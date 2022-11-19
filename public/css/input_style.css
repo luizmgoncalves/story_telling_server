@@ -1,13 +1,15 @@
 h5{
     color:rgb(110, 2, 2);
     font-family:'Lucida Handwriting Italic';
+    text-align: center;
 }
 
 
 div.input_atom{
     padding: 5px 20px 10px 20px;
     border-radius: 3px;
-    background-color: rgb(218, 218, 218);
+    background-image: linear-gradient(rgb(94, 213, 218), #322266);
+    opacity: 0.95;
     
     border-color: black;
     border-style: solid;
@@ -44,4 +46,10 @@ input{
 
 .form_item{
     margin-top: 10px;
+}
+
+
+.btn{
+    border-radius: 25px;
+    width: fit-content;
 }

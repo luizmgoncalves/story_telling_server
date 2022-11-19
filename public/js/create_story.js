@@ -81,7 +81,7 @@ function add_choice() {
             
             <div class="mb-3" style="text-align:right;">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-outline-dark" id="add_button_${actual_id}" style="height:37px;width:37px;">+</button><button class="btn btn-outline-dark" id="sub_button_${actual_id}" style="height:37px;width:37px;">-</button>
+                    <button class="btn btn-outline-light" id="add_button_${actual_id}" style="height:37px;width:37px;">+</button><button class="btn btn-outline-light" id="sub_button_${actual_id}" style="height:37px;width:37px;">-</button>
                 </div>
             </div>
             <input type="number" class="input_number" id="input_number_${actual_id}"  min="0" max="5" hidden="true">

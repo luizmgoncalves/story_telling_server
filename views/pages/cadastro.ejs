@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" type="text/css" href="/css/input_style.css">
     <%- include('../partials/head') %> 
+    <link rel="stylesheet" type="text/css" href="/css/input_style.css">
     <style>
         p.description{
             font-size: 16px;
@@ -17,9 +17,7 @@
   <body>
     <%- include('../partials/header', {user: null}); %>
     <div class="ex_title">
-        <div class="title">
-            <h1 id="history_title">Cadastro</h1>
-        </div>
+        <h1 id="main_title">Cadastro</h1>
     </div>
     <div id="content">
         <div class="row container">
@@ -42,7 +40,7 @@
                         <input name="password" type="password" class="form-control" placeholder="senha"/>
                     </div>
                         
-                    <input type="submit" value="Cadastrar" class="btn btn-outline-primary form_item"/>
+                    <input type="submit" value="Cadastrar" class="btn btn-primary form_item"/>
                         
                     <%}%>
                     <% if(message_err.length > 0) { %>

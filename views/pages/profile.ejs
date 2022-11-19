@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <%- include('../partials/head') %> 
-    <link rel="stylesheet" type="text/css" href="/css/story.css">
+    <link rel="stylesheet" type="text/css" href="/css/story-listing.css">
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
@@ -17,7 +17,7 @@
         </div>  
         <hr>
 
-        <h4>Histórias: </h4>
+        <h4 id="main_title">Histórias: </h4>
 
         <div class="row">
         <% stories.forEach(function(story){ %>
