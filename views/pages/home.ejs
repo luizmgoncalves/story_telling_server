@@ -6,50 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Story Telling</title>
     <%- include('../partials/head') %> 
-    <link rel="stylesheet" href="/css/story.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <%- include('../partials/header', {user: user}); %>
-    <div class="ex_title">
-        <h1 id="main_title">Home</h1>
+    <div class="titulo">
+        Story Telling
+        <h3 class="subtitulo">
+            Deixe sua imaginação voar!
+            <hr id="pcl">
+        </h3>
     </div>
+    <a class="back-to-top" href="#">▲</a>
 
     <div id="content">
-        <p>
-            Seja muito bem vindo à plataforma StoryTelling, uma plataforma onde você pode deixar sua criatividade voar e pode compartilhar e também ler as mais fantásticas 🐉⚔️🏰🧙🏻‍♂️, mais assustadoras 😱👻🧟, mais emocionantes 🥺🌹😭, mais românticas 🌼💌💕, mais misteriosas 🕵🏽🔮 e engraçadas 😆😂🤣 histórias possíveis.
-        </p>
-        <br>
-        <h3>Não uma história comum</h3>
-        <br>
-        <p>
-            A plataforma StoryTelling não somente guarda histórias comuns, as histórias tem <span style="font-weight: bold;">ESCOLHAS</span> 🤯🤯🤯, quando estiver escrevendo ou lendo uma história poderá fazer escolhas e mudar totalmente o rumo da história. Não queremos limitar sua criatividade, você pode criar histórias lineares, ou com escolhas que mudam completamente a história, ou com escolhas que mudam pequenas situações, entre outras coisas... você decide!
-        </p>
-        
-        <p>
-            Você pode naturalmente buscar pelas nossas principais histórias na página "<a href="/">Principais Histórias</a>" e explorar todas as diversas possibilidades de escolhas e ramificações que cada histórias pode ter.
-        </p>
 
-        <img src="/images/choice_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
-
-        <br><br>
-            
-        <p>
-             Agora, se você também tem o anseio de <span style="font-weight: bold;">criar histórias</span>, você pode se <a href="/cadastro">cadastrar</a> e então ter histórias vinculadas ao seu usuário!
-        </p>
-        <p>
-             As histórias são separadas em núcleos, as escolhas. Cada escolha tem um único ID, um texto, e suas opções. Cada opção tem o seu texto e um link para outra escolha, esse link deve conter o ID da escolha à qual ela leva, se esse ID for um valor inválido a escolha não levará a lugar algum.
+        <h1>O que o Story-Trees pode fazer por você?</h1>
+        <hr>
+        <p> Você já pensou o que aconteceria se eu tomasse uma decisão diferente? Ou quado você estava lendo uma história e gritou de raiva "Porque esse personagem escolheu fazer isso?!" Imagine se Romeu não tivesse tomado veneno, ou se Chapeuzinho Vermelho não tivesse sido salva pelo Caçador, ou até se 
             <br>
-             Veja um simples exemplo abaixo:
+            <br> Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+            consequatur. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+            commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
+            sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute
+            iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis aute iure reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
         </p>
+        <br>
+        <br>
+        <h1>Como Utilizar?</h1>
+        <hr>
+        <p>Para ajudar nossos novos usuários, preparamos uma explicação básica de cada opção disponível no site:
+            <br>
+            <br> • "Principais histórias": aqui você encontra uma lista com as histórias mais populares do site, para jogar alguma de seu interesse, basta clicar sobre ela.
+            <br> <img src="tutorial1.png" id="tutorial" alt="">
 
-        <img src="/images/json_creator_example.png" alt="Exemplo do escolha numa história" class="rounded mx-auto d-block" style="max-width: 700px; border-style: solid; width: 100%;">
+            <br> • "Localmente": ao clicar nessa opção outras duas irão aparecer: "Criar história" e "Jogar história", na primeira você poderá criar e personalizar sua própria escolha, que poderá ser publicada e jogada por outros usuários. Na segunda,
+            você poderá inserir um json de uma história, que te levará diretamente para ela. <br>
+            <img src="tutorial2.png" id="tutorial" alt=""> <br>
+            <img src="tutorial3.png" id="tutorial" alt="">
+            <br> Sobrou alguma dúvida? Clique aqui para um tutorial mais completo!!
+            <br>
 
-        <br><br>
 
-        <p>
-            Se não quiser se cadastrar, você pode também <a href="/criar_historia">criar histórias localmente</a> (no seu computador, sem subir para a internet), para jogá-las você deve copiar o código gerado pela página e colar na página <a href="/jogar_historia">Jogar História</a>.
-       </p>
+        </p>
+        <br>
+        <br>
+        <h1>Sobre os criadores</h1>
+        <hr>
 
+        
     </div>
+    <div class="criadores">
+        <div class="ana" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+
+            </p>
+        </div>
+        <div class="cris" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+
+            </p>
+        </div>
+        <div class="luiz" id="perfil">
+            <img src="/images/perfil_temporario.png" alt="" id="img-perfil">
+            <p>textinho textinho maneiro Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore
+
+            </p>
+        </div>
+    </div>
+    
 </body>
 </html>

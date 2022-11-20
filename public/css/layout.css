@@ -4,6 +4,19 @@ html {
     scroll-behavior: smooth;
 }
 
+.dropdown-menu{
+    background-color: rgba(105, 105, 105, 0.808);
+    
+}
+
+.dropdown-item{
+    color: white;;
+}
+
+.dropdown-item:hover{
+    background-color: rgba(214, 214, 214, 0.808);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +27,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
     color: white;
+    padding-bottom: 50px;
 }
 
 
