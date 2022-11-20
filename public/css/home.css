@@ -25,7 +25,8 @@ p {
 /**CONTEUDO**/
 
 .titulo {
-    font-size: 6rem;
+    font-size: max(6vw, 4rem); 
+    margin: auto;
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -34,6 +35,7 @@ p {
     color: white;
     text-align: center;
     font-family: 'Lucida Handwriting Italic';
+    max-width: 80%;
 }
 
 hr {
