@@ -57,3 +57,13 @@ div.option:hover {
 .play_button:hover {
     transform: scale(1.3);
 }
+
+#return{
+    color: white; 
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#return:hover{
+    text-decoration: underline;
+}
