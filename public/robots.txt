@@ -1,2 +1,4 @@
 User-Agent: *
 Disallow: /admin/
+
+Sitemap: https://story-trees.80ff.com.br/sitemap.xml
