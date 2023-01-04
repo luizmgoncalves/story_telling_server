@@ -2,43 +2,43 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-    <loc>https://story-trees.80ff.com.br/</loc>
+    <loc>https://80ff.com.br/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/home</loc>
+    <loc>https://80ff.com.br/home</loc>
     <priority>0.9</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/criar_historia</loc>
+    <loc>https://80ff.com.br/criar_historia</loc>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/tutorial</loc>
+    <loc>https://80ff.com.br/tutorial</loc>
     <priority>0.7</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/jogar_historia</loc>
+    <loc>https://80ff.com.br/jogar_historia</loc>
     <priority>0.4</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/cadastro</loc>
+    <loc>https://80ff.com.br/cadastro</loc>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/cadastro/forget</loc>
+    <loc>https://80ff.com.br/cadastro/forget</loc>
     <priority>0.4</priority>
 </url>
 
 <url>
-    <loc>https://story-trees.80ff.com.br/login</loc>
+    <loc>https://80ff.com.br/login</loc>
     <priority>0.7</priority>
 </url>
 </urlset>
